@@ -1,0 +1,10 @@
+﻿  TSortTable.cpp
+C:\Users\UnityTester\source\repos\MnogoTable\MnogoTable\TTable.h(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\UnityTester\source\repos\MnogoTable\MnogoTable\TTable.h(3,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\UnityTester\source\repos\MnogoTable\MnogoTable\TTable.h(4,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\UnityTester\source\repos\MnogoTable\MnogoTable\TTable.h(5,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+TSortTable.obj : error LNK2019: ссылка на неразрешенный внешний символ "protected: void __cdecl TSortTable::SortData(void)" (?SortData@TSortTable@@IEAAXXZ) в функции "public: class TSortTable & __cdecl TSortTable::operator=(class TScanTable const &)" (??4TSortTable@@QEAAAEAV0@AEBVTScanTable@@@Z).
+TSortTable.obj : error LNK2001: неразрешенный внешний символ "public: virtual class TDataValue * __cdecl TSortTable::FindRecord(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?FindRecord@TSortTable@@UEAAPEAVTDataValue@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z).
+TSortTable.obj : error LNK2001: неразрешенный внешний символ "public: virtual void __cdecl TSortTable::InsertRecord(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class TDataValue *)" (?InsertRecord@TSortTable@@UEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEAVTDataValue@@@Z).
+TSortTable.obj : error LNK2001: неразрешенный внешний символ "public: virtual void __cdecl TSortTable::DeleteRecord(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?DeleteRecord@TSortTable@@UEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z).
+C:\Users\UnityTester\source\repos\MnogoTable\x64\Debug\MnogoTable.exe : fatal error LNK1120: неразрешенных внешних элементов: 4
