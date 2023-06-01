@@ -1,116 +1,130 @@
 #pragma once
 #include "TTable.h"
 
-#define TabMaxSize 99 
+#define TABMAXSIZE 99 
 
 
-enum TDataPosition
+enum Position
 {
-	First, Current, Last
+    FIRST, CURRENT, LAST
 };
 
-class TArrayTable : public TTable
+class TArrayTable : public TTable  // абстрактный базовый класс для таблиц с непрерывной памятью
 {
 protected:
-	PTTabRecord* pRecs;// массив указателей на записи в таблице
-	int tabSize;
-	int curPos;
+    PTTabRecord* pRecs;// массив указателей на записи в таблице
+    size_t tabSize;
+    size_t curPos;
 
 public:
-	TArrayTable(int size = TabMaxSize) : tabSize(size){
-		pRecs = new PTTabRecord[tabSize];
-		for (int i = 0; i < tabSize; i++) {
-			pRecs[i] = nullptr;
-		}
-		curPos = 0;
-	}
-	virtual ~TArrayTable() {
-		for (int i = 0; i < tabSize; i++) {
-			delete pRecs[i];
-		}
-		delete[] pRecs;
-	}
+    TArrayTable(int size = TABMAXSIZE) : tabSize(size), curPos(0) {
+        pRecs = new PTTabRecord[tabSize];
+        for (int i = 0; i < tabSize; i++) {
+            pRecs[i] = nullptr;
+        }
+    }
 
-	virtual bool IsFull()const {
-		return dataCount >= tabSize;
-	}
+    virtual ~TArrayTable() {
+        for (int i = 0; i < tabSize; i++) {
+            delete pRecs[i];
+        }
+        delete[] pRecs;
+    }
 
-	int GetTabSize() const {
-		return tabSize;
-	}
+    virtual bool IsFull() const {
+        return dataCount >= tabSize;
+    }
 
-	//4 метода 
-	virtual Tkey GetKey() const{
-		return GetKey(TDataPosition::Current);
+    int GetTabSize() const {  return tabSize; }
 
-	}
-	virtual Tkey GetKey(TDataPosition pos) const {
-		int local_pos = -1;
-		if (!IsEmpty()){
-			switch(pos){
-			case TDataPosition::First:
-				local_pos = 0; 
-				break;
-			case TDataPosition::Last:
-				local_pos = dataCount - 1;
-				break;
-			default:
-				local_pos = curPos;
-				break;
-			}
-		}
-		return (local_pos == -1)? "" : pRecs[local_pos] -> key;
-	};
+    //4 метода 
+    virtual TKey GetKey() const{return GetKey(Position::CURRENT);}
+    virtual TKey GetKey(Position pos) const {
+        int local_pos = -1;
+        if (!IsEmpty()){
+            switch(pos){
+            case Position::FIRST:
+                local_pos = 0; 
+                break;
+            case Position::LAST:
+                local_pos = dataCount - 1;
+                break;
+            default:
+                local_pos = curPos;
+                break;
+            }
+        }
+        return (local_pos == -1)? "" : pRecs[local_pos] -> _key;
+    };
 
-	virtual PTDataValue GetValuePtr() const{
-		return GetValuePtr(TDataPosition::Current);
 
-	}
-	virtual PTDataValue GetValuePtr(TDataPosition pos) const {
-		int local_pos = -1;
-		if (!IsEmpty()) {
-			switch (pos) {
-			case TDataPosition::First:
-				local_pos = 0;
-				break;
-			case TDataPosition::Last:
-				local_pos = dataCount - 1;
-				break;
-			default:
-				local_pos = curPos;
-				break;
-			}
-		}
-		return (local_pos == -1) ? nullptr : pRecs[local_pos]->pValue;
-	};
-	
-	virtual int Reset() {
-		curPos = 0;
-		return IsTabEnded();
-	};
-	
-	virtual bool IsTabEnded() const{
-		return (curPos >= dataCount);
-	};
-	
-	virtual int GoNext() {
-		if (!IsTabEnded()) {
-			curPos++;
-		}
-		return IsTabEnded();
-	};
+    TDataValue* GetValue() const {return GetValue(Position::CURRENT);}
+    TDataValue* GetValue(Position position) const {
+        if (IsEmpty())
+            return nullptr;
 
-	virtual void SetCurrentPosition(int pos) {
-		if (pos > -1 && pos < dataCount) {
-			curPos = pos;
-		}
-		else { curPos = 0; }
-	}
-	int GetCurrentPosition() const{
-		return curPos;
-	}
-	
-	friend class TSortTable;
+        uint32_t index;
+        switch (position) {
+        case Position::FIRST:
+            index = 0;
+            break;
+        case Position::LAST:
+            index = TTable::dataCount - 1;
+            break;
+        default:
+            index = curPos;
+            break;
+        }
+        return pRecs[index]->_pValue;
+    }
+
+
+    virtual PTDataValue GetValuePtr() const{ return GetValuePtr(Position::CURRENT);}
+    virtual PTDataValue GetValuePtr(Position pos) const {
+        int local_pos = -1;
+        if (!IsEmpty()) {
+            switch (pos) {
+            case Position::FIRST:
+                local_pos = 0;
+                break;
+            case Position::LAST:
+                local_pos = dataCount - 1;
+                break;
+            default:
+                local_pos = curPos;
+                break;
+            }
+        }
+        return (local_pos == -1) ? nullptr : pRecs[local_pos]->_pValue;
+    };
+    
+    virtual int Reset() {  
+        curPos = 0;
+        return IsTabEnded();
+    };
+    
+    virtual bool IsTabEnded() const{ 
+        return (curPos >= dataCount);
+    };
+    
+    virtual int GoNext() {
+        if (!IsTabEnded()) {
+            curPos++;
+        }
+        return IsTabEnded();
+    };
+
+    virtual void SetCurrentPosition(int pos) {
+        if (pos > -1 && pos < dataCount) {
+            curPos = pos;
+        }
+        else { curPos = 0; }
+    }
+    int GetCurrentPosition() const{
+        return curPos;
+    }
+    
+    friend class TSortTable;
 
 };
 
