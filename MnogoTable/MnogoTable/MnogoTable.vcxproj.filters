@@ -13,30 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков\Rebuild">
+      <UniqueIdentifier>{9a00c7fc-8755-4e6a-a50c-5a866d8916be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Rebuild">
+      <UniqueIdentifier>{f8431b59-77f8-4e45-a961-e03f7d5bdc2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Done">
+      <UniqueIdentifier>{3c421c84-8855-4262-948c-285a11e3c7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Done">
+      <UniqueIdentifier>{ab377c8d-1009-465d-9855-a24cf8182b82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TDataValue.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Marks.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
     <ClInclude Include="TDataCom.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="TTabRecord.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
     <ClInclude Include="TTable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="TArrayTable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="TScanTable.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
     <ClInclude Include="TSortTable.h">
+      <Filter>Файлы заголовков\Rebuild</Filter>
+    </ClInclude>
+    <ClInclude Include="TTabRecord.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TArrayTable.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="Marks.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TScanTable.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TWarAndWorld.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,14 +59,17 @@
     <ClCompile Include="Source.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="TArrayTable.cpp">
+    <ClCompile Include="TSortTable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TWarAndWorld.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="TScanTable.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Done</Filter>
     </ClCompile>
-    <ClCompile Include="TSortTable.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="TArrayTable.cpp">
+      <Filter>Done</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

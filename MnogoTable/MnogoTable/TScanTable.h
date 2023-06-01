@@ -1,50 +1,56 @@
 #pragma once
 #include "TArrayTable.h"
 
-class TScanTable : public TArrayTable
+class TScanTable : public TArrayTable  //модуль с классом, обеспечивающим реализацию просматриваемых таблиц;
 {
 public:
-	TScanTable(int size = TabMaxSize):TArrayTable(size) {}
+    TScanTable(int size = TABMAXSIZE) :TArrayTable(size) {}
 
-	virtual PTDataValue FindRecord(Tkey key) override{
-		int i;
-		SetRetCode(TabOkey);
-		for (i = 0; i < dataCount; i++) {
-			if (pRecs[i]->GetKey() == key) {
-				break;
-			}
-		}
-		if (i < dataCount) {
-			curPos = i;
-			return pRecs[i]->GetpValue();
-		}else{
-			SetRetCode(TabNoRecord);
-			return nullptr;
-		}
-	}
+    virtual PTDataValue FindRecord(TKey key) override {
+        int i;
+        SetRetCode(TAB_OK);
+        for (i = 0; i < dataCount; i++) {
+            if (pRecs[i]->GetKey() == key) {
+                break;
+            }
+        }
+        efficiency = i + 1;
+        if (i < dataCount) {
+            curPos = i;
+            return pRecs[i]->_pValue;
+        }
+        else {
+            SetRetCode(TAB_NO_RECORD);
+            return nullptr;
+        }
+    }
 
-	virtual void InsertRecord(Tkey key, PTDataValue pValue_) override{
-		if (IsFull()) {
-			SetRetCode(TabFull);
-		}
-		else {
-			pRecs[dataCount] = new TTabRecord(key, pValue_);
-			dataCount++;
-			SetRetCode(TabOkey);
-		}
-	}
+    virtual bool InsertRecord(TKey key, PTDataValue pValue_) override {
+        if (IsFull()) {
+            SetRetCode(TAB_FULL);
+            return false;
+        }
+        if (FindRecord(key), GetRetCode() != TAB_NO_RECORD) {
+            SetRetCode(TAB_RECORD_DOUBLE);
+            return false;
+        }
+        pRecs[dataCount] = new TTabRecord(key, pValue_);
+        dataCount++;
+        SetRetCode(TAB_OK);
+        return true;
+    }
 
-	virtual void DeleteRecord(Tkey key) override{
-		PTDataValue tmp = FindRecord(key);
-		if (tmp == nullptr) {
-			SetRetCode(TabNoRecord);
-		}
-		else {
-			SetRetCode(TabOkey);
-			pRecs[curPos] = pRecs[dataCount - 1]; // ruina v pamyati
-			dataCount--;
-			pRecs[dataCount] = nullptr;
-		}
-	}
+    virtual void DeleteRecord(TKey key) override{
+        PTDataValue tmp = FindRecord(key);
+        if (tmp == nullptr) {
+            SetRetCode(TAB_NO_RECORD);
+        }
+        else {
+            SetRetCode(TAB_OK);
+            pRecs[curPos] = pRecs[dataCount - 1]; // ruina v pamyati
+            dataCount--;
+            pRecs[dataCount] = nullptr;
+        }
+    }
 };
 

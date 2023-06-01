@@ -7,7 +7,6 @@ class TDataCom
 {
 protected:
 	int retCode;
-
 public:
 
 	TDataCom() : retCode(DataOk)

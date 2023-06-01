@@ -2,42 +2,46 @@
 #include"TScanTable.h"
 
 enum SortType {
-	Insert,
-	Merge,
-	Quick,
-	Free
+    InsertSort,
+    QuickSort,
+    MergeSort,
+    HeapSort
 };
 
 
 class TSortTable : public TScanTable
 {
 protected:
-	SortType sortType;
-	void SortData();
-	void InsertSort(PTTabRecord* pmem, int size );
+    SortType sortType;
 
-	void MergeSort(PTTabRecord* pmem, int size);
-	void MergeSorter(PTTabRecord *&pdata, PTTabRecord *&pbuf, int size);
-	void MergeData(PTTabRecord*& pdata, PTTabRecord*& pbuf, int n1, int n2); // слияние | n1, n2 - 
+    void InsertSort(PTTabRecord* pmem, int size );
 
-	void QuickSort(PTTabRecord* pmem, int size);
-	void QuickSplit(PTTabRecord* pmem, int size, int& pivot);
+    void QuickSort(PTTabRecord* pmem, int size);
+    void QuickSplit(PTTabRecord* pmem, int size, int& pivot);
 
-	void FreeSort(PTTabRecord* pmem, int size);
+    void MergeSort(PTTabRecord* pmem, int size);
+    void MergeSorter(PTTabRecord *&pdata, PTTabRecord *&pbuf, int size);
+    void MergeData(PTTabRecord*& pdata, PTTabRecord*& pbuf, int n1, int n2); // слияние | n1, n2 -
+
+    void FreeSort(PTTabRecord* pmem, int size);
+
+    void Heapify(PTTabRecord* data, int size, int root);
 public:
-	TSortTable(SortType srtT,int size = TabMaxSize) : TScanTable(size), sortType(srtT) {};
+    void SortData();
 
-	TSortTable(const TScanTable& st);
+    TSortTable(SortType srtT,int size = TABMAXSIZE) : TScanTable(size), sortType(srtT) {};
 
-	TSortTable& operator=(const TScanTable& st);
+    TSortTable(const TScanTable& st);
 
-	SortType GetSortType() const{ return sortType; };
+    TSortTable& operator=(const TScanTable& st);
 
-	virtual PTDataValue FindRecord(Tkey key) override;
+    SortType GetSortType() const{ return sortType; };
 
-	virtual void InsertRecord(Tkey key, PTDataValue pValue_) override;
+    virtual PTDataValue FindRecord(TKey key) override;
 
-	virtual void DeleteRecord(Tkey key) override;
+    virtual bool InsertRecord(TKey key, PTDataValue pValue_) override;
+
+    virtual void DeleteRecord(TKey key) override;
 
 };
 
