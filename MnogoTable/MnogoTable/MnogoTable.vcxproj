@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Marks.h" />
     <ClInclude Include="TArrayTable.h" />
     <ClInclude Include="TDataCom.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="TWarAndWorld.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TArrayTable.cpp" />
     <ClCompile Include="TScanTable.cpp" />

@@ -54,6 +54,9 @@
     <ClInclude Include="TWarAndWorld.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -70,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="TArrayTable.cpp">
       <Filter>Done</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
