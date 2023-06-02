@@ -1,60 +1,57 @@
 #pragma once
-#include <string>
+
 #include <iostream>
 #include "TDataValue.h"
 
 typedef std::string TKey;
 
-class TTabRecord : public TDataValue // модуль с классом объектов-значений для записей таблицы
-{
-protected:
-    TKey _key;
-    PTDataValue _pValue;
+class TTabRecord : public TDataValue {
 
-    virtual void Print(std::ostream& os) const override{
-        os << _key << " " << *_pValue << std::endl;
+protected:
+    
+    TKey _key;
+    PTDatValue _pValue; 
+
+    void Print(std::ostream& os) const override {
+        os << _key << " " << *_pValue;
     }
 
     void SetKey(const TKey& key) { _key = key; }
-    void SetValue(PTDataValue value) { _pValue = value; }
+    void SetValue(PTDatValue value) { _pValue = value; }
 
 public:
-
-    TTabRecord(TKey key_ = " ", PTDataValue pValue_ = nullptr) 
-        : _key(key_), _pValue(pValue_)
-    {}
-
-    TKey GetKey() { return _key;}
-    PTDataValue GetpValue() { return _pValue; }
+    TTabRecord(const TKey& key = "", PTDatValue value = nullptr) :
+        _key(key), _pValue(value) {}
 
 
-    virtual TDataValue* GetCopy()
-    {
-        return new TTabRecord(_key, _pValue);
-    };
+    TKey GetKey() { return _key; }
+    PTDatValue GetValue() { return _pValue; }
 
-    TTabRecord& operator=(const TTabRecord& tab_)
-    {
-        _key = tab_._key;
-        _pValue = tab_._pValue;
+    TTabRecord& operator=(const TTabRecord& other) {
+        _key = other._key;
+        _pValue = other._pValue;
+
         return *this;
     }
-    virtual bool operator==(const TTabRecord& tab_)
-    {
-        return _key == tab_._key;
-    }
-    virtual bool operator<(const TTabRecord& tab_)
-    {
-        return _key < tab_._key;
-    }
-    virtual bool operator>(const TTabRecord& tab_)
-    {
-        return _key > tab_._key;
+
+    bool operator==(const TTabRecord& other) {
+        return _key == other._key;
     }
 
-    friend class TArrayTable;
+    bool operator<(const TTabRecord& other) {
+        return _key < other._key;
+    }
+
+    bool operator>(const TTabRecord& other) {
+        return _key > other._key;
+    }
+
+    PTDatValue GetCopy() override {
+        return new TTabRecord(_key, _pValue);
+    }
+
     friend class TScanTable;
-
+    friend class TArrayTable;
 };
 
 typedef TTabRecord* PTTabRecord;
