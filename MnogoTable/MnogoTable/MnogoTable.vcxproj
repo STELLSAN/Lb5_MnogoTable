@@ -127,10 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Marks.h" />
+    <ClInclude Include="TArrayHashTable.h" />
     <ClInclude Include="TArrayTable.h" />
     <ClInclude Include="TDataCom.h" />
     <ClInclude Include="TDataValue.h" />
+    <ClInclude Include="TestScan.h" />
+    <ClInclude Include="THashTable.h" />
+    <ClInclude Include="TListHashTable.h" />
     <ClInclude Include="TScanTable.h" />
     <ClInclude Include="TSortTable.h" />
     <ClInclude Include="TTable.h" />
@@ -138,8 +143,13 @@
     <ClInclude Include="TWarAndWorld.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TArrayHashTable.cpp" />
     <ClCompile Include="TArrayTable.cpp" />
+    <ClCompile Include="TestScan.cpp" />
+    <ClCompile Include="THashTable.cpp" />
+    <ClCompile Include="TListHashTable.cpp" />
     <ClCompile Include="TScanTable.cpp" />
     <ClCompile Include="TSortTable.cpp" />
     <ClCompile Include="TWarAndWorld.cpp" />

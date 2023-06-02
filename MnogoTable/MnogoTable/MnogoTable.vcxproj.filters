@@ -25,6 +25,9 @@
     <Filter Include="Done">
       <UniqueIdentifier>{ab377c8d-1009-465d-9855-a24cf8182b82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\5.1">
+      <UniqueIdentifier>{f2a75ff7-9e21-4e82-96e4-2ecc6f3de2c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TDataValue.h">
@@ -51,14 +54,26 @@
     <ClInclude Include="TScanTable.h">
       <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
+    <ClInclude Include="THashTable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TArrayHashTable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
     <ClInclude Include="TWarAndWorld.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TListHashTable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScan.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="TSortTable.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -70,6 +85,24 @@
     </ClCompile>
     <ClCompile Include="TArrayTable.cpp">
       <Filter>Done</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="THashTable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TArrayHashTable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TListHashTable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Done</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScan.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

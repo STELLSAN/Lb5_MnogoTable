@@ -1,16 +1,23 @@
 #include "Marks.h"
+
+#include<iostream>
+#include"TWarAndWorld.h"
+#include"InputHandler.h"
+#include"TArrayTable.h"
 #include "TTabRecord.h"
+#include"TListHashTable.h"
+#include"TestScan.h"
 
 int main() {
-	Marks mmm = Marks(1, 5, 3); // Mavrodi jiv! :D
-	std::cout << mmm<< std::endl;
+	
+	TListHashTable* test = new TListHashTable(100);
 
-	Marks* mmm2012 = (Marks*)mmm.GetCopy();
-	std::cout << *mmm2012 << std::endl;
+	InputHandler p = InputHandler(test);
+	p.ProcessInput("..\\voina-i-mir.txt");
+	
+	TestScan ts = TestScan();
 
-	//TTabRecord* tabs = new TTabRecord[10];
 
-
-
+	return 0;
 
 }

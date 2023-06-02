@@ -36,8 +36,8 @@ public:
     }
 
     int GetTabSize() const {  return tabSize; }
-
-    //4 метода 
+    /*
+    
     virtual TKey GetKey() const{return GetKey(Position::CURRENT);}
     virtual TKey GetKey(Position pos) const {
         int local_pos = -1;
@@ -56,6 +56,7 @@ public:
         }
         return (local_pos == -1)? "" : pRecs[local_pos] -> _key;
     };
+    */
 
 
     TDataValue* GetValue() const {return GetValue(Position::CURRENT);}
@@ -96,14 +97,20 @@ public:
             }
         }
         return (local_pos == -1) ? nullptr : pRecs[local_pos]->_pValue;
-    };
+    };  
     
+
+    virtual TKey GetKey()const;
+    //virtual PTDataValue FindRecord(TKey key_);
+    //virtual bool InsertRecord(TKey key_, PTDataValue pValue_);
+    //virtual void DeleteRecord(TKey key_);
+
     virtual int Reset() {  
         curPos = 0;
         return IsTabEnded();
     };
     
-    virtual bool IsTabEnded() const{ 
+    virtual int IsTabEnded() const{ 
         return (curPos >= dataCount);
     };
     

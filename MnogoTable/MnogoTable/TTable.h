@@ -35,17 +35,17 @@ public:
     virtual void DeleteRecord(TKey key_) = 0;
 
     virtual int Reset() = 0;
-    virtual bool IsTabEnded()const = 0;
+    virtual int IsTabEnded()const = 0;
     virtual int GoNext() = 0;
 
-    virtual TKey GeyKey()const = 0;
+    virtual TKey GetKey()const = 0;
     virtual PTDataValue GetValuePtr() const = 0;
 
     friend std::ostream& operator<<(std::ostream& os, TTable& tab_)
     {
         for (tab_.Reset(); !tab_.IsTabEnded(); tab_.GoNext())
         {
-            os << "Key: " << tab_.GeyKey() << " Value: " << *tab_.GetValuePtr() << std::endl;
+            os << "Key: " << tab_.GetKey() << " Value: " << *tab_.GetValuePtr() << std::endl;
         }
         return os;
     }
