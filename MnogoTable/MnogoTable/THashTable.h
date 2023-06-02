@@ -1,6 +1,5 @@
 #pragma once
-
-#include"TTable.h"
+#include "TTable.h"
 
 class THashTable : public TTable
 {
@@ -18,14 +17,14 @@ protected:
 	virtual unsigned long long WorstHashFunc(const TKey& key) {
 		//хэш функция генерирует индекс для ключа!!!
 		unsigned long long hv = key.size();
-		hv = (hv >> 5);
+			hv = (hv >> 5);
 		return hv;
 	};
 	virtual unsigned long long BestHashFunc(const TKey& key) {
 		//хэш функция генерирует индекс для ключа!!!
 		unsigned long long hash = 0;
 
-		for (int i = 0; i < key.size(); i++)
+		for (int i=0; i< key.size(); i++)
 		{
 			hash += (unsigned char)(key[i]);
 			hash += (hash << 10);

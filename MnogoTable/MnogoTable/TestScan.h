@@ -10,7 +10,8 @@
 
 class TestScan
 {
-	const std::vector<char> _punctMark = { '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', '[', ']', '*' };
+	std::vector<char> _punctMarks{ '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', 'Ц',
+		'[', ']', '*', '/', '<', '>', 'Л', 'Ы', '†', 'Ф', 'У', 'Ђ', 'ї', '¶'};
 public:
 	double TestInsert(TTable* a, std::string st, TWarAndWorld* waw) {
 
@@ -38,7 +39,7 @@ public:
 		return  (double)(end - start) / CLOCKS_PER_SEC;
 
 	}
-	/*
+
 	double TestFreeChoice(TScanTable* a) {
 		TSortTable* a2 = new TSortTable(*a);
 		a2->SetSortMethod(FreeChoice);
@@ -64,7 +65,7 @@ public:
 		clock_t start = clock();
 		a2->SortData();
 		clock_t end = clock();
-
+		
 		return  (double)(end - start) / CLOCKS_PER_SEC;
 
 	}
@@ -74,7 +75,7 @@ public:
 		clock_t start = clock();
 		a2->SortData();
 		clock_t end = clock();
-
+		
 		return  (double)(end - start) / CLOCKS_PER_SEC;
 
 	}
@@ -84,12 +85,10 @@ public:
 		clock_t start = clock();
 		a2->SortData();
 		clock_t end = clock();
-
+		
 		return  (double)(end - start) / CLOCKS_PER_SEC;
 
 	}
-	*/
-
 	double TestWordSearch(TTable* tst, std::string Path) {
 		std::ifstream in(Path /*"C:\\Users\\Tim\\Desktop\\MultiTable\\WarAndPeace.txt"*/); // открываем файл дл€ чтени€
 		double value = 0;
@@ -101,7 +100,7 @@ public:
 				std::string tempStr;
 
 				for (int i = 0; i < line.size(); i++) {
-					if (std::find(_punctMark.begin(), _punctMark.end(), line[i]) == _punctMark.end()) {
+					if (std::find(_punctMarks.begin(), _punctMarks.end(), line[i]) == _punctMarks.end()) {
 						if (!('0' <= line[i] && line[i] <= '9')) {
 							tempStr += line[i];
 
@@ -109,7 +108,7 @@ public:
 
 					}
 					else {
-						value += WordFind(tst, tempStr);
+						value+=WordFind(tst, tempStr);
 						tempStr.clear();
 					}
 

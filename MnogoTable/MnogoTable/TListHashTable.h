@@ -14,10 +14,10 @@ public:
 	TListHashTable(size_t size = 25);
 	virtual ~TListHashTable();
 
-	virtual bool IsFull() const;
+	virtual bool isFull() const;
 
-	virtual PTDataValue FindRecord(TKey key) override;
-	virtual bool InsertRecord(TKey key, PTDataValue datValue) override;
+	virtual PTDatValue FindRecord(TKey key) override;
+	virtual bool InsertRecord(TKey key, PTDatValue datValue) override;
 	virtual void DeleteRecord(TKey key) override;
 
 	virtual int Reset()override;
@@ -26,7 +26,7 @@ public:
 	virtual int GoNext() override;
 
 	virtual TKey GetKey()const override;
-	virtual PTDataValue GetValuePtr() const override;
+	virtual PTDatValue GetValuePtr() const override;
 
 };
 
