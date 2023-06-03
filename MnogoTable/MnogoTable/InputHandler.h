@@ -19,7 +19,7 @@ public:
 	}
     
 	void Execution(std::string Path) {
-        std::ifstream input(Path); // открываем файл по заданному пути
+        std::ifstream input(Path);
 
         TypeSymbol typeSym = TypeSymbol::DEFAULT;
         TypeLetter letter = TypeLetter::DEFAULT;
@@ -87,7 +87,7 @@ public:
 private:
 
     void WordProcessing( std::string st, TypeSymbol typeSym, TypeLetter letter, BookNumber bookNum ) {
-        auto *wordsInWarAndPeace = new TWarAndWorld(bookNum, typeSym, letter, st.size());
+        auto* wordsInWarAndPeace = new TWarAndWorld(bookNum, typeSym, letter, st.size());
         bool result = _table->InsertRecord(st, wordsInWarAndPeace);
         if (!result && _table->GetRetCode() == TAB_RECORD_DOUBLE) {
             auto value = (TWarAndWorld*)_table->GetValuePtr();

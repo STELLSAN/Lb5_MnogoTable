@@ -15,8 +15,6 @@ TSortTable& TSortTable::operator=(const TScanTable& ts)
     for (int i = 0; i < dataCount; i++) {
         pRecs[i] = (PTTabRecord)ts.pRecs[i]->GetCopy();
     }
-
-   // SortData();
     curPos = 0;
 
     return *this;
@@ -86,7 +84,7 @@ void TSortTable::DeleteRecord(TKey key)
             pRecs[i] = pRecs[i + 1];
         }
         pRecs[--dataCount] = nullptr;
-    } // Проблема с утечкой памяти. Доказать
+    }
 }
 
 void TSortTable::SortData()
@@ -146,6 +144,39 @@ void TSortTable::InsertSort(PTTabRecord* data, int size)
     }
 }
 
+void TSortTable::QuickSort(PTTabRecord* data, int n1, int n2)
+{
+    if (n1 < n2)
+    {
+        int pivot = QuickSplit(data, n1, n2);
+
+        QuickSort(data, n1, pivot - 1);
+        QuickSort(data, pivot + 1, n2);
+    }
+}
+
+int TSortTable::QuickSplit(PTTabRecord* data, int n1, int n2)
+{
+    int i = n1, pivot = n2;
+    while (i < pivot)
+    {
+        if (data[i]->GetKey() > data[pivot]->GetKey() && i == pivot - 1)
+        {
+            std::swap(data[i], data[pivot]);
+            pivot--;
+        }
+        else if (data[i]->GetKey() > data[pivot]->GetKey())
+        {
+            std::swap(data[pivot - 1], data[pivot]);
+            std::swap(data[i], data[pivot]);
+            pivot--;
+        }
+        else i++;
+    }
+    return pivot;
+
+}
+
 void TSortTable::MergeSort(PTTabRecord* data, int size)
 {
     PTTabRecord* pBuf = new PTTabRecord[this->size];
@@ -154,8 +185,6 @@ void TSortTable::MergeSort(PTTabRecord* data, int size)
 
 void TSortTable::MergeSorter(PTTabRecord* pRecs, PTTabRecord* pBuf, int n1, int n2)
 {
-    
-    
     int mid;
     if (n1 < n2) {
 
@@ -171,7 +200,7 @@ void TSortTable::MergeData(PTTabRecord* pRecs, PTTabRecord* pBuf, int n1, int n2
 {
     int k = n1, i = n1, j = mid + 1;
 
-    // Пока есть элементы в левом и правом прогонах
+    // Пока есть элементы в левой и правой части
     while (i <= mid && j <= n2)
     {
         if (pRecs[i]->GetKey() <= pRecs[j]->GetKey()) {
@@ -184,17 +213,15 @@ void TSortTable::MergeData(PTTabRecord* pRecs, PTTabRecord* pBuf, int n1, int n2
         }
     }
 
-    // Копируем оставшиеся элементы
+    // Копируем остаток
     while (i <= mid) {
         pBuf[k++] = pRecs[i++];
     }
     while (j <= n2) {
         pBuf[k++] = pRecs[j++];
     }
-    // Вторую половину копировать не нужно (поскольку остальные элементы
-    // уже находятся на своем правильном месте во вспомогательном массиве)
 
-    // копируем обратно в исходный массив, чтобы отразить порядок сортировки
+    // в исходный массив
     for (int i = n1; i <= n2; i++) {
         pRecs[i] = pBuf[i];
     }
@@ -232,50 +259,3 @@ void TSortTable::Heapify(PTTabRecord* data, int size, int root)
 }
 
 
-
-void TSortTable::QuickSort(PTTabRecord* data, int n1, int n2)
-{
-    //int pivot = size / 2;
-    //QuickSplit(data,  n1, n2, pivot);
-    //if (pivot > 0) {
-    //    //"Левый кусок"
-    //    QuickSort(data, n1, pivot-1);
-    //}
-    //if (size> pivot+1) {
-    //   
-    //    QuickSort(data, pivot+1, n2);
-    //}
-
-    if (n1 < n2)
-    {
-       int pivot= QuickSplit(data, n1, n2);
-
-       QuickSort(data, n1, pivot - 1);
-       QuickSort(data, pivot + 1, n2);
-    }
-}
-
-int TSortTable::QuickSplit(PTTabRecord* data, int n1,  int n2)
-{
-    int i = n1, pivot=n2;
-    while (i < pivot)
-    {
-        if (data[i]->GetKey() > data[pivot]->GetKey() && i == pivot - 1)
-        {
-            std::swap(data[i], data[pivot]);
-            pivot--;
-        }
-
-        else if (data[i]->GetKey() > data[pivot]->GetKey())
-        {
-            
-            std::swap(data[pivot - 1], data[pivot]);
-            std::swap(data[i], data[pivot]);
-            pivot--;
-        }
-
-        else i++;
-    }
-    return pivot;
-    
-}

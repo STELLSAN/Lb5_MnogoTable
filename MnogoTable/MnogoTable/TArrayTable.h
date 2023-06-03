@@ -43,7 +43,6 @@ public:
     virtual PTDataValue GetValuePtr(Position pos) const;
     virtual PTDataValue GetValuePtr() const { return GetValuePtr(Position::CURRENT); }
 
-    // Сдача 5.1 на хэш таблице
     //virtual PTDataValue FindRecord(TKey key) = 0;
     //virtual bool InsertRecord(TKey key, PTDataValue value) = 0; // передача value по ссылке
     //virtual void DeleteRecord(TKey key) = 0;
@@ -73,13 +72,13 @@ public:
         return pRecs[index]->_pValue;
     }
 
-    virtual int Reset(void) // установить на первую запись
+    virtual int Reset(void)
     {
         this->curPos = 0;
         return this->IsTabEnded();
     }
 
-    virtual int IsTabEnded(void) const // таблица завершена?
+    virtual int IsTabEnded(void) const 
     {	
         return this->curPos >= dataCount;
     }
@@ -91,7 +90,7 @@ public:
         return this->IsTabEnded();
     }
 
-    virtual int SetCurrentPos(int pos)// установить текущую запись
+    virtual int SetCurrentPos(int pos)
     {
         if (pos < 0 || pos > dataCount)
             curPos = 0;

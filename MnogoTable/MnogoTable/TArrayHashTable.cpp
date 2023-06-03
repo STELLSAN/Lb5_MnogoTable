@@ -35,15 +35,15 @@ PTDataValue TArrayHashTable::FindRecord(TKey key)
 
 	for (int i = 0; i < tabSize; i++) {
 		efficiency++;
-		if (pRecs[currentPos] == nullptr) break; //текущая позиция свободна, записи нет
-		else if (pRecs[currentPos] == pMark) { //запись не пуста, но оттуда что-то удалили
-			if (freePos == -1) freePos = currentPos; //можно потом сюда записать
+		if (pRecs[currentPos] == nullptr) break; //свободная позиция, нужного key нет
+		else if (pRecs[currentPos] == pMark) { // из позиции что-то удалили
+			if (freePos == -1) freePos = currentPos; //суда можно будет записать
 		}
 		else if (pRecs[currentPos]->GetKey() == key) {
-			ptmp = pRecs[currentPos]->GetValue();  //запись найдена, выход из цикла
+			ptmp = pRecs[currentPos]->GetValue();  //нашли запись
 			break;
 		}
-		//пока не найдено, берем следующую возможную
+		//берём каждую следующую, пока не найдено 
 		currentPos = GetNextPosition(currentPos);
 
 	}

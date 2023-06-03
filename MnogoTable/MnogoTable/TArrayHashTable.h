@@ -12,7 +12,6 @@ protected:
 	int hashStep;
 
 	int GetNextPosition(size_t pos) {
-		//???
 		return (pos + hashStep) % tabSize;
 	}
 
