@@ -1,47 +1,51 @@
 #pragma once
-#include"TScanTable.h"
+#include "TScanTable.h"
 
-enum SortType {
-    InsertSort,
-    QuickSort,
-    MergeSort,
-    HeapSort
+enum SortMeth{
+	BubbleSort,
+	QuickSort,
+	MergeSort,
+	InsertSort,
+	FreeChoice // на выбор
 };
-
 
 class TSortTable : public TScanTable
 {
 protected:
-    SortType sortType;
+	SortMeth _sortMethod;
+	
+	void BubbleSort(PTTabRecord* data, int size);
 
-    void InsertSort(PTTabRecord* pmem, int size );
+	void InsertSort(PTTabRecord* data, int size);
 
-    void QuickSort(PTTabRecord* pmem, int size);
-    void QuickSplit(PTTabRecord* pmem, int size, int& pivot);
+	void QuickSort(PTTabRecord* data, int n1, int n2);
+	int QuickSplit(PTTabRecord* data, int n1, int n2); //pivot - опорный элемент
 
-    void MergeSort(PTTabRecord* pmem, int size);
-    void MergeSorter(PTTabRecord *&pdata, PTTabRecord *&pbuf, int size);
-    void MergeData(PTTabRecord*& pdata, PTTabRecord*& pbuf, int n1, int n2); // слияние | n1, n2 -
+	void MergeSort(PTTabRecord* data, int size);
+	void MergeSorter(PTTabRecord* pRecs, PTTabRecord* pBuf,int n1, int n2); //Нужны для сортировки слиянием
+	void MergeData(PTTabRecord* pRecs, PTTabRecord* pBuf, int n1, int n2, int mid); //
 
-    void FreeSort(PTTabRecord* pmem, int size);
+	void FreeChoice(PTTabRecord* data, int size);
 
-    void Heapify(PTTabRecord* data, int size, int root);
+	void Heapify(PTTabRecord* data, int size, int root);
+
+	
 public:
-    void SortData();
-
-    TSortTable(SortType srtT,int size = TABMAXSIZE) : TScanTable(size), sortType(srtT) {};
-
-    TSortTable(const TScanTable& st);
-
-    TSortTable& operator=(const TScanTable& st);
-
-    SortType GetSortType() const{ return sortType; };
-
-    virtual PTDataValue FindRecord(TKey key) override;
-
-    virtual bool InsertRecord(TKey key, PTDataValue pValue_) override;
-
-    virtual void DeleteRecord(TKey key) override;
+	void SortData();
+	TSortTable(int size = 50) : TScanTable(size) {};
+	TSortTable(const TScanTable& st) {
+		*this = st;
+	}
+	TSortTable& operator=(const TScanTable& ts);
+	SortMeth GetSortMethod() {
+		return _sortMethod;
+	}
+	void SetSortMethod(SortMeth sm) {
+		_sortMethod = sm;
+	}
+	virtual PTDataValue FindRecord(TKey key) override;
+	virtual bool InsertRecord(TKey key, PTDataValue value) override;
+	virtual void DeleteRecord(TKey key) override;
 
 };
 

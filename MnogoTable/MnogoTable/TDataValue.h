@@ -1,22 +1,23 @@
 #pragma once
+#include <iostream>
 
-#include<iostream>
-class TDataValue {
+
+class TDataValue
+{
 protected:
-    virtual void Print(std::ostream& os) const = 0;
+	virtual void Print(std::ostream& os) const = 0;
 public:
-    TDataValue() {};
-    virtual TDataValue* GetCopy() = 0;
-    friend std::ostream& operator << (std::ostream& out, TDataValue& tdv) {
-        if (&tdv != nullptr)
-        {
-            tdv.Print(out);
-        }
-        return out;
-    }
+
+	TDataValue() = default;
+	virtual TDataValue* GetCopy() = 0;
+	friend std::ostream& operator<<(std::ostream& os, const TDataValue& dv) 
+	{
+		//? TDataValue == nullpointer
+		dv.Print(os);
+		return os;
+	};
+	
+
 };
 
 typedef TDataValue* PTDataValue;
-
-
-
