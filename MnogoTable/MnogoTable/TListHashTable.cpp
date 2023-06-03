@@ -37,7 +37,6 @@ PTDataValue TListHashTable::FindRecord(TKey key)
 		if ((*iterator)->GetKey() == key)
 		{
 			pValue = (*iterator)->GetValue();
-			//currentElem = *iterator;
 			iter = iterator;
 			break;
 		}
@@ -99,7 +98,7 @@ int TListHashTable::Reset()
 	return IsTabEnded();
 }
 
-int TListHashTable::IsTabEnded() const // относитья как к методу итератора
+int TListHashTable::IsTabEnded() const 
 {
 	return currentList >= tabSize;
 }
@@ -107,7 +106,7 @@ int TListHashTable::IsTabEnded() const // относитья как к методу итератора
 bool TListHashTable::IsListEnded() const
 {
 	auto tmp = iter;
-	return ++tmp == pList[currentList].end(); // lValue и rValue 
+	return ++tmp == pList[currentList].end(); // lpValue и rpValue 
 }
 
 int TListHashTable::GoNext()

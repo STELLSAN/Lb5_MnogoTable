@@ -19,11 +19,12 @@ protected:
 	void InsertSort(PTTabRecord* data, int size);
 
 	void QuickSort(PTTabRecord* data, int n1, int n2);
-	int QuickSplit(PTTabRecord* data, int n1, int n2); //pivot - опорный элемент
+
+	int QuickSplit(PTTabRecord* data, int n1, int n2);
 
 	void MergeSort(PTTabRecord* data, int size);
-	void MergeSorter(PTTabRecord* pRecs, PTTabRecord* pBuf,int n1, int n2); //Нужны для сортировки слиянием
-	void MergeData(PTTabRecord* pRecs, PTTabRecord* pBuf, int n1, int n2, int mid); //
+	void MergeSorter(PTTabRecord* pRecs, PTTabRecord* pBuf,int n1, int n2);
+	void MergeData(PTTabRecord* pRecs, PTTabRecord* pBuf, int n1, int n2, int mid); 
 
 	void FreeChoice(PTTabRecord* data, int size);
 

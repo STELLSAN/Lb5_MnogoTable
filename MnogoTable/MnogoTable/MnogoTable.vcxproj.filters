@@ -31,12 +31,6 @@
     <Filter Include="Исходные файлы\NeedCheck">
       <UniqueIdentifier>{165ebbc2-6233-4e2b-9300-9a5cb4a4976f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addcom">
-      <UniqueIdentifier>{cb954137-98fa-49da-93ca-e3353b01435a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\addCom">
-      <UniqueIdentifier>{6501a151-5c2f-448c-9eab-ffe5feb5333d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TScanTable.h">
@@ -52,9 +46,6 @@
       <Filter>Файлы заголовков\NeedCheck</Filter>
     </ClInclude>
     <ClInclude Include="TListHashTable.h">
-      <Filter>Файлы заголовков\NeedCheck</Filter>
-    </ClInclude>
-    <ClInclude Include="TSortTable.h">
       <Filter>Файлы заголовков\NeedCheck</Filter>
     </ClInclude>
     <ClInclude Include="TWarAndWorld.h">
@@ -81,13 +72,13 @@
     <ClInclude Include="TTabRecord.h">
       <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
+    <ClInclude Include="TSortTable.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="TSortTable.cpp">
-      <Filter>Исходные файлы\NeedCheck</Filter>
     </ClCompile>
     <ClCompile Include="TListHashTable.cpp">
       <Filter>Исходные файлы\NeedCheck</Filter>
@@ -117,6 +108,9 @@
       <Filter>Исходные файлы\Done</Filter>
     </ClCompile>
     <ClCompile Include="TMarks.cpp">
+      <Filter>Исходные файлы\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="TSortTable.cpp">
       <Filter>Исходные файлы\Done</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,7 +9,6 @@ protected:
         int keySize = key.size();
         for (int i = 0; i < keySize; i++) {
             hv = (hv << 3) + key[i];
-
         }
         return hv;
     };
