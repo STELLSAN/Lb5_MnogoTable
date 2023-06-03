@@ -18,7 +18,7 @@ TListHashTable::~TListHashTable()
 	delete[] pList;
 }
 
-bool TListHashTable::IsFull() const
+bool TListHashTable::isFull() const
 {
 	return pList == nullptr;
 }
@@ -29,14 +29,14 @@ PTDataValue TListHashTable::FindRecord(TKey key)
 	currentList = HashFunc(key) % tabSize;
 	efficiency = 0;
 
-
+	
 
 	for (auto iterator = pList[currentList].begin(); iterator != pList[currentList].end(); ++iterator)
 	{
 		efficiency++;
 		if ((*iterator)->GetKey() == key)
 		{
-			pValue = (*iterator)->GetpValue();
+			pValue = (*iterator)->GetValue();
 			//currentElem = *iterator;
 			iter = iterator;
 			break;
@@ -56,7 +56,7 @@ PTDataValue TListHashTable::FindRecord(TKey key)
 
 bool TListHashTable::InsertRecord(TKey key, PTDataValue datValue)
 {
-	if (IsFull()) {
+	if (isFull()) {
 		SetRetCode(TAB_FULL);
 	}
 	else {
@@ -129,5 +129,5 @@ TKey TListHashTable::GetKey() const
 
 PTDataValue TListHashTable::GetValuePtr() const
 {
-	return (*iter)->GetpValue();
+	return (*iter)->GetValue();
 }

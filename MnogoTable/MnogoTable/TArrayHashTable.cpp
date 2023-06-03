@@ -3,9 +3,9 @@
 TArrayHashTable::TArrayHashTable(size_t size, int step) : tabSize(size), hashStep(step) {
 	if (size <= 0)
 		throw std::exception("Value cannot be less than zero");
-	pData = new PTTabRecord[size];
+	pRecs = new PTTabRecord[size];
 	for (int i = 0; i < size; i++) {
-		pData[i] = nullptr;
+		pRecs[i] = nullptr;
 	}
 	pMark = new TTabRecord("", nullptr);
 	currentPos = 0;
@@ -16,12 +16,12 @@ TArrayHashTable::TArrayHashTable(size_t size, int step) : tabSize(size), hashSte
 TArrayHashTable::~TArrayHashTable()
 {
 	for (int i = 0; i < tabSize; i++) {
-		if (pData[i] != nullptr && pData[i] != pMark) {
-			delete pData[i];
+		if (pRecs[i] != nullptr && pRecs[i] != pMark) {
+			delete pRecs[i];
 		}
 
 	}
-	delete[] pData;
+	delete[] pRecs;
 	delete pMark;
 }
 
@@ -35,12 +35,12 @@ PTDataValue TArrayHashTable::FindRecord(TKey key)
 
 	for (int i = 0; i < tabSize; i++) {
 		efficiency++;
-		if (pData[currentPos] == nullptr) break; //текущая позиция свободна, записи нет
-		else if (pData[currentPos] == pMark) { //запись не пуста, но оттуда что-то удалили
+		if (pRecs[currentPos] == nullptr) break; //текущая позиция свободна, записи нет
+		else if (pRecs[currentPos] == pMark) { //запись не пуста, но оттуда что-то удалили
 			if (freePos == -1) freePos = currentPos; //можно потом сюда записать
 		}
-		else if (pData[currentPos]->GetKey() == key) {
-			ptmp = pData[currentPos]->GetpValue();  //запись найдена, выход из цикла
+		else if (pRecs[currentPos]->GetKey() == key) {
+			ptmp = pRecs[currentPos]->GetValue();  //запись найдена, выход из цикла
 			break;
 		}
 		//пока не найдено, берем следующую возможную
@@ -56,7 +56,7 @@ PTDataValue TArrayHashTable::FindRecord(TKey key)
 
 bool TArrayHashTable::InsertRecord(TKey key, PTDataValue datValue)
 {
-	if (IsFull()) {
+	if (isFull()) {
 		SetRetCode(TAB_FULL);
 	}
 	else {
@@ -65,7 +65,7 @@ bool TArrayHashTable::InsertRecord(TKey key, PTDataValue datValue)
 		else {
 			SetRetCode(TAB_OK);
 			if (freePos != -1) currentPos = freePos;
-			pData[currentPos] = new TTabRecord(key, datValue);
+			pRecs[currentPos] = new TTabRecord(key, datValue);
 			dataCount++;
 			return true;
 		}
@@ -81,8 +81,8 @@ void TArrayHashTable::DeleteRecord(TKey key)
 	}
 	else {
 		SetRetCode(TAB_OK);
-		delete pData[currentPos];
-		pData[currentPos] = pMark;
+		delete pRecs[currentPos];
+		pRecs[currentPos] = pMark;
 		dataCount--;
 	}
 
@@ -92,7 +92,7 @@ int TArrayHashTable::Reset()
 {
 	currentPos = 0;
 	while (currentPos < tabSize) {
-		if (pData[currentPos] != nullptr && pData[currentPos] != pMark) break;
+		if (pRecs[currentPos] != nullptr && pRecs[currentPos] != pMark) break;
 		currentPos++;
 
 	}
@@ -106,21 +106,21 @@ int TArrayHashTable::IsTabEnded() const
 
 int TArrayHashTable::GoNext()
 {
-	while (!IsTabEnded()) {
-		currentPos++;
-		if (pData[currentPos] != nullptr && pData[currentPos] != pMark) break;
+	while (!IsTabEnded()) {	
+			currentPos++;
+			if (pRecs[currentPos] != nullptr && pRecs[currentPos] != pMark) break;
 	}
 	return IsTabEnded();
 }
 
 TKey TArrayHashTable::GetKey() const
 {
-	if (currentPos >= 0 && currentPos < tabSize) return pData[currentPos]->GetKey();
+	if (currentPos >= 0 && currentPos < tabSize) return pRecs[currentPos]->GetKey();
 	return "";
 }
 
 PTDataValue TArrayHashTable::GetValuePtr() const
 {
-	if (currentPos >= 0 && currentPos < tabSize) return pData[currentPos]->GetpValue();
+	if (currentPos >= 0 && currentPos < tabSize) return pRecs[currentPos]->GetValue();
 	return nullptr;
 }

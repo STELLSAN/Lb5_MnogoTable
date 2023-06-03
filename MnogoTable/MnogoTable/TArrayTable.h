@@ -1,67 +1,60 @@
 #pragma once
 #include "TTable.h"
 
-#define TABMAXSIZE 99 
+#define TAB_MAX_SIZE 50
 
-
-enum Position
+enum class Position
 {
-    FIRST, CURRENT, LAST
+    FIRST,
+    CURRENT,
+    LAST
 };
 
-class TArrayTable : public TTable  // абстрактный базовый класс для таблиц с непрерывной памятью
-{
+class TArrayTable: public TTable {
 protected:
-    PTTabRecord* pRecs;// массив указателей на записи в таблице
-    size_t tabSize;
+    PTTabRecord* pRecs;
+    size_t size;
     size_t curPos;
-
 public:
-    TArrayTable(int size = TABMAXSIZE) : tabSize(size), curPos(0) {
-        pRecs = new PTTabRecord[tabSize];
-        for (int i = 0; i < tabSize; i++) {
+
+    TArrayTable(size_t size = TAB_MAX_SIZE) : size(size), curPos(0) {
+        pRecs = new PTTabRecord[this->size];
+        for (int i = 0; i < this->size; i++) {
             pRecs[i] = nullptr;
         }
     }
 
     virtual ~TArrayTable() {
-        for (int i = 0; i < tabSize; i++) {
+        for (int i = 0; i < this->size; i++) {
             delete pRecs[i];
         }
         delete[] pRecs;
     }
 
-    virtual bool IsFull() const {
-        return dataCount >= tabSize;
+    virtual bool isFull() const override {
+        return dataCount >= size;
     }
 
-    int GetTabSize() const {  return tabSize; }
-    /*
+    size_t GetSize() const { return size; }
     
-    virtual TKey GetKey() const{return GetKey(Position::CURRENT);}
-    virtual TKey GetKey(Position pos) const {
-        int local_pos = -1;
-        if (!IsEmpty()){
-            switch(pos){
-            case Position::FIRST:
-                local_pos = 0; 
-                break;
-            case Position::LAST:
-                local_pos = dataCount - 1;
-                break;
-            default:
-                local_pos = curPos;
-                break;
-            }
-        }
-        return (local_pos == -1)? "" : pRecs[local_pos] -> _key;
-    };
-    */
+    virtual TKey GetKey(Position pos) const;
+    virtual TKey GetKey() const { return GetKey(Position::CURRENT); }
+
+    virtual PTDataValue GetValuePtr(Position pos) const;
+    virtual PTDataValue GetValuePtr() const { return GetValuePtr(Position::CURRENT); }
+
+    // Сдача 5.1 на хэш таблице
+    //virtual PTDataValue FindRecord(TKey key) = 0;
+    //virtual bool InsertRecord(TKey key, PTDataValue value) = 0; // передача value по ссылке
+    //virtual void DeleteRecord(TKey key) = 0;
 
 
-    TDataValue* GetValue() const {return GetValue(Position::CURRENT);}
+    TDataValue* GetValue() const {
+        return GetValue(Position::CURRENT);
+    }
+
     TDataValue* GetValue(Position position) const {
-        if (IsEmpty())
+        if (isEmpty())
             return nullptr;
 
         uint32_t index;
@@ -76,62 +69,41 @@ public:
             index = curPos;
             break;
         }
+
         return pRecs[index]->_pValue;
     }
 
-
-    virtual PTDataValue GetValuePtr() const{ return GetValuePtr(Position::CURRENT);}
-    virtual PTDataValue GetValuePtr(Position pos) const {
-        int local_pos = -1;
-        if (!IsEmpty()) {
-            switch (pos) {
-            case Position::FIRST:
-                local_pos = 0;
-                break;
-            case Position::LAST:
-                local_pos = dataCount - 1;
-                break;
-            default:
-                local_pos = curPos;
-                break;
-            }
-        }
-        return (local_pos == -1) ? nullptr : pRecs[local_pos]->_pValue;
-    };  
-    
-
-    virtual TKey GetKey()const;
-    //virtual PTDataValue FindRecord(TKey key_);
-    //virtual bool InsertRecord(TKey key_, PTDataValue pValue_);
-    //virtual void DeleteRecord(TKey key_);
-
-    virtual int Reset() {  
-        curPos = 0;
-        return IsTabEnded();
-    };
-    
-    virtual int IsTabEnded() const{ 
-        return (curPos >= dataCount);
-    };
-    
-    virtual int GoNext() {
-        if (!IsTabEnded()) {
-            curPos++;
-        }
-        return IsTabEnded();
-    };
-
-    virtual void SetCurrentPosition(int pos) {
-        if (pos > -1 && pos < dataCount) {
-            curPos = pos;
-        }
-        else { curPos = 0; }
+    virtual int Reset(void) // установить на первую запись
+    {
+        this->curPos = 0;
+        return this->IsTabEnded();
     }
-    int GetCurrentPosition() const{
+
+    virtual int IsTabEnded(void) const // таблица завершена?
+    {	
+        return this->curPos >= dataCount;
+    }
+
+    virtual int GoNext(void)
+    {
+        if (!this->IsTabEnded())
+            this->curPos++;
+        return this->IsTabEnded();
+    }
+
+    virtual int SetCurrentPos(int pos)// установить текущую запись
+    {
+        if (pos < 0 || pos > dataCount)
+            curPos = 0;
+        else
+            curPos = pos;
+        return IsTabEnded();
+    }
+
+    int GetCurrentPos(void) const
+    {
         return curPos;
     }
-    
+
     friend class TSortTable;
-
 };
-

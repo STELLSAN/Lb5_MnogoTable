@@ -13,96 +13,119 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\Rebuild">
-      <UniqueIdentifier>{9a00c7fc-8755-4e6a-a50c-5a866d8916be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\Rebuild">
-      <UniqueIdentifier>{f8431b59-77f8-4e45-a961-e03f7d5bdc2e}</UniqueIdentifier>
+      <UniqueIdentifier>{7ec7e798-c03b-4022-9ee5-bf0ec0ca75fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Done">
+      <UniqueIdentifier>{d5bb3a77-51ed-4a41-93be-7810c6c4b4f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Файлы заголовков\Done">
-      <UniqueIdentifier>{3c421c84-8855-4262-948c-285a11e3c7e7}</UniqueIdentifier>
+      <UniqueIdentifier>{e1a15c0b-ef95-4241-b272-8652ba656fb6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Done">
-      <UniqueIdentifier>{ab377c8d-1009-465d-9855-a24cf8182b82}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\Rebuild">
+      <UniqueIdentifier>{f3f7900d-305d-4a13-8b77-146fa1356039}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\5.1">
-      <UniqueIdentifier>{f2a75ff7-9e21-4e82-96e4-2ecc6f3de2c7}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\NeedCheck">
+      <UniqueIdentifier>{bc3213f0-4b82-4f23-bc87-721912fc9fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\NeedCheck">
+      <UniqueIdentifier>{165ebbc2-6233-4e2b-9300-9a5cb4a4976f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addcom">
+      <UniqueIdentifier>{cb954137-98fa-49da-93ca-e3353b01435a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\addCom">
+      <UniqueIdentifier>{6501a151-5c2f-448c-9eab-ffe5feb5333d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TDataValue.h">
+    <ClInclude Include="TScanTable.h">
+      <Filter>Файлы заголовков\NeedCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="TArrayHashTable.h">
+      <Filter>Файлы заголовков\NeedCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScan.h">
+      <Filter>Файлы заголовков\NeedCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="THashTable.h">
+      <Filter>Файлы заголовков\NeedCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="TListHashTable.h">
+      <Filter>Файлы заголовков\NeedCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="TSortTable.h">
+      <Filter>Файлы заголовков\NeedCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="TWarAndWorld.h">
       <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
-    <ClInclude Include="TDataCom.h">
+    <ClInclude Include="InputHandler.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TDatCom.h">
       <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
     <ClInclude Include="TTable.h">
       <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
-    <ClInclude Include="TSortTable.h">
-      <Filter>Файлы заголовков\Rebuild</Filter>
+    <ClInclude Include="TArrayTable.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TMarks.h">
+      <Filter>Файлы заголовков\Done</Filter>
+    </ClInclude>
+    <ClInclude Include="TDataValue.h">
+      <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
     <ClInclude Include="TTabRecord.h">
       <Filter>Файлы заголовков\Done</Filter>
     </ClInclude>
-    <ClInclude Include="TArrayTable.h">
-      <Filter>Файлы заголовков\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="Marks.h">
-      <Filter>Файлы заголовков\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="TScanTable.h">
-      <Filter>Файлы заголовков\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="THashTable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="TArrayHashTable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="InputHandler.h">
-      <Filter>Файлы заголовков\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="TWarAndWorld.h">
-      <Filter>Файлы заголовков\Done</Filter>
-    </ClInclude>
-    <ClInclude Include="TListHashTable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScan.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="TSortTable.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="TWarAndWorld.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="TScanTable.cpp">
-      <Filter>Done</Filter>
-    </ClCompile>
-    <ClCompile Include="TArrayTable.cpp">
-      <Filter>Done</Filter>
-    </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="THashTable.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="TArrayHashTable.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\NeedCheck</Filter>
     </ClCompile>
     <ClCompile Include="TListHashTable.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\NeedCheck</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Done</Filter>
+    <ClCompile Include="THashTable.cpp">
+      <Filter>Исходные файлы\NeedCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScanTable.cpp">
+      <Filter>Исходные файлы\NeedCheck</Filter>
     </ClCompile>
     <ClCompile Include="TestScan.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\NeedCheck</Filter>
     </ClCompile>
+    <ClCompile Include="TArrayHashTable.cpp">
+      <Filter>Исходные файлы\NeedCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="TScanTable.cpp">
+      <Filter>Исходные файлы\NeedCheck</Filter>
+    </ClCompile>
+    <ClCompile Include="TWarAndWorld.cpp">
+      <Filter>Исходные файлы\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Исходные файлы\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="TArrayTable.cpp">
+      <Filter>Исходные файлы\Done</Filter>
+    </ClCompile>
+    <ClCompile Include="TMarks.cpp">
+      <Filter>Исходные файлы\Done</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\WarAndPeace.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="..\text-full.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ public:
 	TListHashTable(size_t size = 25);
 	virtual ~TListHashTable();
 
-	virtual bool IsFull() const;
+	virtual bool isFull() const;
 
 	virtual PTDataValue FindRecord(TKey key) override;
 	virtual bool InsertRecord(TKey key, PTDataValue datValue) override;

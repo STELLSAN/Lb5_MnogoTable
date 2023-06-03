@@ -1,10 +1,6 @@
 #pragma once
-
-#include<iostream>
-#include<vector>
-#include"TDataValue.h"
-
-enum class BookNum {
+#include "TDataValue.h"
+enum class BookNumber { // enum äëÿ ÷àñòåé ñåðèè
     DEFAULT,
     FIRST,
     SECOND,
@@ -13,79 +9,207 @@ enum class BookNum {
     EPILOGUE
 };
 
+struct WordCounts { // Ñ÷¸ò÷èê ñëîâ
+    int bookOne=0;
+    int bookTwo=0;
+    int bookThree=0;
+    int bookFour=0;
+    int epilogue=0;
 
-struct WordCount{
-    int bookOne = 0;
-    int bookTwo = 0;
-    int bookThree = 0;
-    int bookFour = 0;
-    int epilogue = 0;
+    int SumWord() const {return bookOne + bookTwo + bookThree + bookFour + epilogue;}
 
-    int TWordSum() const {
-
-        return bookOne + bookTwo + bookThree + bookFour + epilogue;
+    BookNumber Prevailing() const { //?
+        int p = 0;
+        BookNumber s = BookNumber::DEFAULT;
+        if (bookOne > p) {
+            p = bookOne;
+            s = BookNumber::FIRST;
+        }
+        if (bookTwo > p) {
+            p = bookTwo;
+            s = BookNumber::SECOND;
+        }
+        if (bookThree > p) {
+            p = bookThree;
+            s = BookNumber::THIRD;
+        }
+        if (bookFour > p) {
+            p = bookFour;
+            s = BookNumber::FORTH;
+        }
+        if (epilogue > p) {
+            p = epilogue;
+            s = BookNumber::EPILOGUE;
+        }
+        return s;
     }
-    friend std::ostream& operator<<(std::ostream& ostream, const WordCount& wordCount) {
-        ostream << wordCount.bookOne << '\t' << wordCount.bookTwo << '\t' << wordCount.bookThree << '\t' << wordCount.bookFour << '\t' << wordCount.epilogue;
-        return ostream;
-    }
+
 };
-
-enum class TypeSymbols {
+enum class TypeSymbol { 
     DEFAULT,
-    CYRILIC,
+    CYRILLIC,
     LATINIC
 };
-
-enum class Letter {
+enum class TypeLetter { 
     DEFAULT,
     ÑAPITAL,
     SMALL
 };
+class TWarAndWorld: public TDataValue
+{ 
+    WordCounts _wordCounts{}; 
+    TypeSymbol _typeSym; 
+    TypeLetter _typeLetter; 
+    uint16_t _length; 
 
-class TWarAndWorld : public TDataValue
-{
-private:
-    WordCount _wordCount{};
-    TypeSymbols _typeSymbols;
-    Letter _letter;
-    short int _lenght;
 public:
-    TWarAndWorld(TypeSymbols typeSym, Letter letter, short int lenght);
-    TWarAndWorld(BookNum booknum, TypeSymbols typeSimbols, Letter letter, short int lenght);
-    TWarAndWorld(WordCount wordCount, TypeSymbols typeSymbols, Letter letter, short int lenght);
+    TWarAndWorld(TypeSymbol typeSym, TypeLetter letter, short int lenght) {
+        _typeSym = typeSym;
+        _typeLetter = letter;
+        _length = lenght;
+    }
 
+    TWarAndWorld(WordCounts wordCounts, TypeSymbol sym, TypeLetter letter, short int lenght) {
+        _typeSym = sym;
+        _typeLetter = letter;
+        _length = lenght;
+        _wordCounts.bookOne = wordCounts.bookOne;
+        _wordCounts.bookTwo = wordCounts.bookTwo;
+        _wordCounts.bookThree = wordCounts.bookThree;
+        _wordCounts.bookFour = wordCounts.bookFour;
+        _wordCounts.epilogue = wordCounts.epilogue;
+    }
 
-    void AddCount(BookNum bookNum) {
-        switch (bookNum)
+    TWarAndWorld(BookNumber bookNum, TypeSymbol sym, TypeLetter letter, short int lenght) {
+        _typeSym = sym;
+        _typeLetter = letter;
+        _length = lenght;
+        switch (bookNum) {
+        case BookNumber::FIRST:
+            _wordCounts.bookOne++; break;
+        case BookNumber::SECOND:
+            _wordCounts.bookTwo++; break;
+        case BookNumber::THIRD:
+            _wordCounts.bookThree++; break;
+        case BookNumber::FORTH:
+            _wordCounts.bookFour++; break;
+        case BookNumber::EPILOGUE:
+            _wordCounts.epilogue++; break;
+
+        }
+        
+    }
+
+    TWarAndWorld() {
+        _typeSym = TypeSymbol::DEFAULT;
+        _typeLetter = TypeLetter::DEFAULT;
+        _length = 0;
+    }
+
+    void AddCount(BookNumber vol) {
+        switch (vol)
         {
-        case BookNum::FIRST:
-            _wordCount.bookOne++;
+        case BookNumber::FIRST:
+            _wordCounts.bookOne++;
             break;
-        case BookNum::SECOND:
-            _wordCount.bookTwo++;
+        case BookNumber::SECOND:
+            _wordCounts.bookTwo++;
             break;
-        case BookNum::THIRD:
-            _wordCount.bookThree++;
+        case BookNumber::THIRD:
+            _wordCounts.bookThree++;
             break;
-        case BookNum::FORTH:
-            _wordCount.bookFour++;
+        case BookNumber::FORTH:
+            _wordCounts.bookFour++;
             break;
-        case BookNum::EPILOGUE:
-            _wordCount.epilogue++;
+        case BookNumber::EPILOGUE:
+            _wordCounts.epilogue++;
             break;
         }
+    };
+
+    TypeSymbol GetTypeSym() {
+        return _typeSym;
     }
 
-    /*
-    * Ãåòòåðû
-    */
+    TypeLetter GetLetter() {
+        return _typeLetter;
+    }
 
-    void Print(std::ostream& os) const override;
+    int GetLength() {
+        return _length;
+    }
+
+    int GetWordCount() {
+        return _wordCounts.SumWord();
+    }
+
+    BookNumber GetPrevailing() {
+        return _wordCounts.Prevailing();
+    }
+
+    void operator =(const TWarAndWorld& wr) {
+        _wordCounts.bookOne = wr._wordCounts.bookOne;
+        _wordCounts.bookTwo = wr._wordCounts.bookTwo;
+        _wordCounts.bookThree = wr._wordCounts.bookThree;
+        _wordCounts.bookFour = wr._wordCounts.bookFour;
+        _wordCounts.epilogue = wr._wordCounts.epilogue;
+        _typeSym = wr._typeSym;
+        _typeLetter = wr._typeLetter;
+        _length = wr._length;
+    }
+
+    void Print(std::ostream& os) const {
+        os << _wordCounts.SumWord() << '\t';
+        
+        switch (_wordCounts.Prevailing()) {
+        case BookNumber::FIRST:
+            os << "FIRST" << '\t'; 
+            break;
+        case BookNumber::SECOND:
+            os << "SECOND" << '\t'; 
+            break;
+        case BookNumber::THIRD:
+            os << "THIRD" << '\t'; 
+            break;
+        case BookNumber::FORTH:
+            os << "FORTH" << '\t'; 
+            break;
+        case BookNumber::EPILOGUE:
+            os << "EPILOGUE" << '\t'; 
+            break;
+        }
+        
+
+        switch (_typeSym) {
+        case TypeSymbol::CYRILLIC:
+            os << "CYRILLIC" << '\t';
+            break;
+        case TypeSymbol::LATINIC:
+            os << "LATINIC" << '\t';
+            break;
+        default:
+            os << "DEFAULT" << '\t';
+            break;
+        }
+
+        switch (_typeLetter) {
+        case TypeLetter::ÑAPITAL:
+            os << "ÑAPITAL" << '\t';
+            break;
+        case TypeLetter::SMALL:
+            os << "SMALL" << '\t';
+            break;
+        default:
+            os << "DEFAULT" << '\t';
+            break;
+        }
+
+        os << _length << '\t';
+        
+    }
 
     TDataValue* GetCopy() {
-        return new TWarAndWorld(_wordCount, _typeSymbols, _letter, _lenght);
+        return new TWarAndWorld(_wordCounts, _typeSym, _typeLetter, _length);
     }
-
 };
 

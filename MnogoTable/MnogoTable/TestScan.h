@@ -10,119 +10,109 @@
 
 class TestScan
 {
-	const std::vector<char> _punctMark = { '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', '[', ']', '*' };
+    std::vector<char> _punctMarks{ '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', 'Ц',
+        '[', ']', '*', '/', '<', '>', 'Л', 'Ы', '†', 'Ф', 'У', 'Ђ', 'ї', '¶'};
 public:
-	double TestInsert(TTable* a, std::string st, TWarAndWorld* waw) {
+    double TestInsert(TTable* a, std::string st, TWarAndWorld* waw) {
 
-		clock_t start = clock();
-		a->InsertRecord(st, waw);
-		clock_t end = clock();
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+        clock_t start = clock();
+        a->InsertRecord(st, waw);
+        clock_t end = clock();
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-	}
+    }
 
-	double TestFind(TTable* a, std::string st) {
+    double TestFind(TTable* a, std::string st) {
 
-		clock_t start = clock();
-		a->FindRecord(st);
-		clock_t end = clock();
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+        clock_t start = clock();
+        a->FindRecord(st);
+        clock_t end = clock();
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-	}
+    }
 
-	double TestDelete(TTable* a, std::string st) {
+    double TestDelete(TTable* a, std::string st) {
 
-		clock_t start = clock();
-		a->DeleteRecord(st);
-		clock_t end = clock();
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+        clock_t start = clock();
+        a->DeleteRecord(st);
+        clock_t end = clock();
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-	}
-	/*
-	double TestFreeChoice(TScanTable* a) {
-		TSortTable* a2 = new TSortTable(*a);
-		a2->SetSortMethod(FreeChoice);
-		clock_t start = clock();
-		a2->SortData();
-		clock_t end = clock();
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+    }
 
-	}
-	double TestQuickSort(TScanTable* a) {
-		TSortTable* a2 = new TSortTable(*a);
-		a2->SetSortMethod(QuickSort);
-		clock_t start = clock();
-		a2->SortData();
-		clock_t end = clock();
-		//std::cout << *a2;
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+    double TestFreeChoice(TScanTable* a) {
+        TSortTable* a2 = new TSortTable(*a);
+        a2->SetSortMethod(FreeChoice);
+        clock_t start = clock();
+        a2->SortData();
+        clock_t end = clock();
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-	}
-	double TestBubbleSort(TScanTable* a) {
-		TSortTable* a2 = new TSortTable(*a);
-		a2->SetSortMethod(BubbleSort);
-		clock_t start = clock();
-		a2->SortData();
-		clock_t end = clock();
+    }
+    double TestQuickSort(TScanTable* a) {
+        TSortTable* a2 = new TSortTable(*a);
+        a2->SetSortMethod(QuickSort);
+        clock_t start = clock();
+        a2->SortData();
+        clock_t end = clock();
+        //std::cout << *a2;
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+    }
 
-	}
-	double TestMergeSort(TScanTable* a) {
-		TSortTable* a2 = new TSortTable(*a);
-		a2->SetSortMethod(MergeSort);
-		clock_t start = clock();
-		a2->SortData();
-		clock_t end = clock();
+    double TestMergeSort(TScanTable* a) {
+        TSortTable* a2 = new TSortTable(*a);
+        a2->SetSortMethod(MergeSort);
+        clock_t start = clock();
+        a2->SortData();
+        clock_t end = clock();
+        
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+    }
+    double TestInsertSort(TScanTable* a) {
+        TSortTable* a2 = new TSortTable(*a);
+        a2->SetSortMethod(InsertSort);
+        clock_t start = clock();
+        a2->SortData();
+        clock_t end = clock();
+        
+        return  (double)(end - start) / CLOCKS_PER_SEC;
 
-	}
-	double TestInsertSort(TScanTable* a) {
-		TSortTable* a2 = new TSortTable(*a);
-		a2->SetSortMethod(InsertSort);
-		clock_t start = clock();
-		a2->SortData();
-		clock_t end = clock();
+    }
+    double TestWordSearch(TTable* tst, std::string Path) {
+        std::ifstream in(Path /*"C:\\Users\\Tim\\Desktop\\MultiTable\\WarAndPeace.txt"*/); // открываем файл дл€ чтени€
+        double value = 0;
+        if (in.is_open())
+        {
 
-		return  (double)(end - start) / CLOCKS_PER_SEC;
+            std::string line;
+            while (getline(in, line)) {
+                std::string tempStr;
 
-	}
-	*/
+                for (int i = 0; i < line.size(); i++) {
+                    if (std::find(_punctMarks.begin(), _punctMarks.end(), line[i]) == _punctMarks.end()) {
+                        if (!('0' <= line[i] && line[i] <= '9')) {
+                            tempStr += line[i];
 
-	double TestWordSearch(TTable* tst, std::string Path) {
-		std::ifstream in(Path /*"C:\\Users\\Tim\\Desktop\\MultiTable\\WarAndPeace.txt"*/); // открываем файл дл€ чтени€
-		double value = 0;
-		if (in.is_open())
-		{
+                        }
 
-			std::string line;
-			while (getline(in, line)) {
-				std::string tempStr;
+                    }
+                    else {
+                        value+=WordFind(tst, tempStr);
+                        tempStr.clear();
+                    }
 
-				for (int i = 0; i < line.size(); i++) {
-					if (std::find(_punctMark.begin(), _punctMark.end(), line[i]) == _punctMark.end()) {
-						if (!('0' <= line[i] && line[i] <= '9')) {
-							tempStr += line[i];
-
-						}
-
-					}
-					else {
-						value += WordFind(tst, tempStr);
-						tempStr.clear();
-					}
-
-				}
-			}
-		};
-		return value;
-	}
-	double WordFind(TTable* tst, std::string st) {
-		clock_t start = clock();
-		tst->FindRecord(st);
-		clock_t end = clock();
-		return  (double)(end - start) / CLOCKS_PER_SEC;
-	}
+                }
+            }
+        };
+        return value;
+    }
+    double WordFind(TTable* tst, std::string st) {
+        clock_t start = clock();
+        tst->FindRecord(st);
+        clock_t end = clock();
+        return  (double)(end - start) / CLOCKS_PER_SEC;
+    }
 };
 

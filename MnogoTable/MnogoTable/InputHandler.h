@@ -1,102 +1,100 @@
 #pragma once
-
-#include<fstream>
-#include<iostream>
-#include<string>
-#include<vector>
-
-#include"TWarAndWorld.h"
-#include"TScanTable.h"
-
+#include <fstream>
+#include <iostream>
+#include <string>
+#include "TScanTable.h"
+#include <vector>
+#include "TWarAndWorld.h"
 
 class InputHandler
 {
 private:
-    TTable* _ttbl;
-    const std::vector<char> _punctMark = { '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', '[', ']', '*'};
-    int bookNumID;
+	TTable* _table;
+    std::vector<char> _punctMark{ { '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', '[', ']', '*'} }; 
+    int _bookNumId;
 public:
+	InputHandler(TTable* table) {
+		_table = table;
+        _bookNumId = 0;
+	}
     
-    InputHandler(TTable* table) {
-        _ttbl = table;
-        bookNumID = 0;
-    }
+	void Execution(std::string Path) {
+        std::ifstream input(Path); // открываем файл по заданному пути
 
-    void ProcessInput(std::string filePath) {
-        std::ifstream in(filePath ); 
-
-        TypeSymbols typeTemp = TypeSymbols::DEFAULT;
-        Letter firstTemp = Letter::DEFAULT;
-        BookNum vol = BookNum::DEFAULT;;
-        if (in.is_open())
+        TypeSymbol typeSym = TypeSymbol::DEFAULT;
+        TypeLetter letter = TypeLetter::DEFAULT;
+        BookNumber bookNum = BookNumber::DEFAULT;;
+        if (input.is_open())
         {
 
-            std::string line;
-            while (getline(in, line)) {
-                std::string tempStr;
+            std::string input_line;
+            while (getline(input, input_line)) {
+                std::string tmp_str;
 
-                for (int i = 0; i < line.size(); i++) {
-                    if (std::find(_punctMark.begin(), _punctMark.end(), line[i]) == _punctMark.end()) {
-                        if (!('0' <= line[i]&& line[i] <= '9')) {
-                            tempStr += line[i];
-                            
+                for (int i = 0; i < input_line.size(); i++) {
+                    if (std::find(_punctMark.begin(), _punctMark.end(), input_line[i]) == _punctMark.end()) { // проход итератора, если не находим Mark, 
+                        if (!('0' <= input_line[i]&& input_line[i] <= '9')) {
+                            tmp_str += input_line[i];
                         }
-
                     }
                     else {
-                        if (tempStr != "") {
-                            if (tempStr == "ТОM") {
-                                bookNumID++;
-                                switch (bookNumID) {
+                        if (tmp_str != "") {
+                            if (tmp_str == "ТОM") {
+                                _bookNumId++;
+                                switch (_bookNumId) {
                                 case 1:
-                                    vol = BookNum::FIRST; break;
+                                    bookNum = BookNumber::FIRST; break;
                                 case 2:
-                                    vol = BookNum::SECOND; break;
+                                    bookNum = BookNumber::SECOND; break;
                                 case 3:
-                                    vol = BookNum::THIRD; break;
+                                    bookNum = BookNumber::THIRD; break;
                                 case 4:
-                                    vol = BookNum::FORTH; break;
+                                    bookNum = BookNumber::FORTH; break;
                                 }
                             }
 
-                            if (tempStr == "Эпилог")
-                                vol = BookNum::EPILOGUE;
-                            
+                            if (tmp_str == "ЭПИЛОГ") {
+                                bookNum = BookNumber::EPILOGUE;
+                            }
 
-                            if (('a' <= tempStr[0]&& tempStr[0] <= 'z' )|| ('A' <= tempStr[0] && tempStr[0] <= 'Z'))
-                                typeTemp = TypeSymbols::LATINIC;
-                            else
-                                typeTemp = TypeSymbols::CYRILIC;
+                            if (('a' <= tmp_str[0] && tmp_str[0] <= 'z') || ('A' <= tmp_str[0] && tmp_str[0] <= 'Z')) {
+                                typeSym = TypeSymbol::LATINIC;
+                            }
+                            else {
+                                typeSym = TypeSymbol::CYRILLIC;
+                            }
 
-                            if (('А' <= tempStr[0] && tempStr[0] <= 'Я') || ('A' <= tempStr[0] && tempStr[0] <= 'Z'))
-                                firstTemp = Letter::СAPITAL;
-                            else
-                                firstTemp = Letter::SMALL;
-                            WordProcessing(tempStr, typeTemp, firstTemp, vol);
-                            tempStr.clear();
+                            if (('А' <= tmp_str[0] && tmp_str[0] <= 'Я') || ('A' <= tmp_str[0] && tmp_str[0] <= 'Z')) {
+                                letter = TypeLetter::СAPITAL;
+                            }
+                            else {
+                                letter = TypeLetter::SMALL;
+                            }
+                            WordProcessing(tmp_str, typeSym, letter, bookNum);
+                            tmp_str.clear();
                         }
 
                     }               
                 }
-            };
-          
+            }; 
         }
-        in.close();
-        std::cout << "File has been read" << std::endl;
-	}
 
+        input.close();
+        std::cout << "The file has been read" << std::endl;
+	}
+    
+    
 private:
-    void WordProcessing(std::string st, TypeSymbols ts, Letter lttr, BookNum bnum) {
-        auto *wordsInWarAndPeace = new TWarAndWorld(bnum, ts, lttr, st.size());
-        _ttbl->InsertRecord(st, wordsInWarAndPeace);
-        if (_ttbl->GetRetCode() == TAB_RECORD_DOUBLE) {
-            auto value = (TWarAndWorld*)_ttbl->GetValuePtr();
-            value->AddCount(bnum);
+
+    void WordProcessing( std::string st, TypeSymbol typeSym, TypeLetter letter, BookNumber bookNum ) {
+        auto *wordsInWarAndPeace = new TWarAndWorld(bookNum, typeSym, letter, st.size());
+        bool result = _table->InsertRecord(st, wordsInWarAndPeace);
+        if (!result && _table->GetRetCode() == TAB_RECORD_DOUBLE) {
+            auto value = (TWarAndWorld*)_table->GetValuePtr();
+            value->AddCount( bookNum);
             delete wordsInWarAndPeace;
         }
     }
-
-
-
+    
 };
 

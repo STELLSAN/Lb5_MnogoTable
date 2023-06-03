@@ -1,10 +1,6 @@
 #pragma once
-#include "TDataCom.h";
-#include "Marks.h";
-#include "TDataValue.h";
-#include "TTable.h";
 #include "TTabRecord.h"
-
+#include "TDatCom.h"
 
 #define TAB_OK 0
 #define TAB_EMPTY -101
@@ -13,43 +9,36 @@
 #define TAB_RECORD_DOUBLE -104
 #define TAB_NO_MEM -105
 
-class TTable : public TDataCom  //абстрактный базовый класс, содержит спецификации методов таблицы
-{
+
+class TTable: public TDatCom {
 protected:
-    size_t dataCount; 
-    size_t efficiency; 
-
+	size_t dataCount; // Кол-во записей
+	size_t efficiency; // Эффективность
 public:
-    TTable() : dataCount(0), efficiency(0)
-    {}
-    virtual ~TTable() {}
+	TTable() : dataCount(0), efficiency(0) {}
+	virtual ~TTable() {}
+	size_t GetDataCount() const { return dataCount; }
+	size_t GetEfficiency() const { return efficiency; }
 
-    int GetDataCount() const { return dataCount; }
-    int GetEfficiency() const { return efficiency; }
+	bool isEmpty() const { return dataCount == 0; }
+	virtual bool isFull() const = 0;
 
-    bool IsEmpty() const{ return dataCount == 0;}
-    virtual bool IsFull() const = 0;
+	virtual PTDataValue FindRecord(TKey key) = 0;
+	virtual bool InsertRecord(TKey key, PTDataValue value) = 0; // передача value по ссылке
+	virtual void DeleteRecord(TKey key) = 0;
 
-    virtual PTDataValue FindRecord(TKey key_) = 0;
-    virtual bool InsertRecord(TKey key_, PTDataValue pValue_) = 0;
-    virtual void DeleteRecord(TKey key_) = 0;
+	// Для итератора 
+	virtual int Reset() = 0;
+	virtual int IsTabEnded() const = 0;
+	virtual int GoNext() = 0;
+	virtual TKey GetKey() const = 0;
+	virtual PTDataValue GetValuePtr() const = 0;
 
-    virtual int Reset() = 0;
-    virtual int IsTabEnded()const = 0;
-    virtual int GoNext() = 0;
-
-    virtual TKey GetKey()const = 0;
-    virtual PTDataValue GetValuePtr() const = 0;
-
-    friend std::ostream& operator<<(std::ostream& os, TTable& tab_)
-    {
-        for (tab_.Reset(); !tab_.IsTabEnded(); tab_.GoNext())
-        {
-            os << "Key: " << tab_.GetKey() << " Value: " << *tab_.GetValuePtr() << std::endl;
-        }
-        return os;
-    }
-    friend class TScanTable;
-
-
+	friend std::ostream& operator<<(std::ostream& out, TTable& table) {
+		for (table.Reset(); !table.IsTabEnded(); table.GoNext())
+		{
+			out << "Key: " << table.GetKey() << " Value: " << *table.GetValuePtr() << std::endl;
+		}
+		return out;
+	}
 };
