@@ -1,6 +1,6 @@
 #include "TScanTable.h"
 
-PTDatValue TScanTable::FindRecord(TKey key)
+PTDataValue TScanTable::FindRecord(TKey key)
 {
     int i;
     SetRetCode(TAB_OK);
@@ -20,7 +20,7 @@ PTDatValue TScanTable::FindRecord(TKey key)
     return nullptr;
 }
 
-bool TScanTable::InsertRecord(TKey key, PTDatValue value)
+bool TScanTable::InsertRecord(TKey key, PTDataValue value)
 {
     if (this->isFull())
     {
@@ -39,7 +39,7 @@ bool TScanTable::InsertRecord(TKey key, PTDatValue value)
 
 void TScanTable::DeleteRecord(TKey key)
 {
-    PTDatValue t =  this->FindRecord(key);
+    PTDataValue t =  this->FindRecord(key);
     if (t == nullptr)
         SetRetCode(TAB_NO_RECORD);
     else

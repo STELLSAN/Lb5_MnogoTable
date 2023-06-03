@@ -22,7 +22,7 @@ TSortTable& TSortTable::operator=(const TScanTable& ts)
     return *this;
 }
 
-PTDatValue TSortTable::FindRecord(TKey key)
+PTDataValue TSortTable::FindRecord(TKey key)
 {
     int first = 0, last = dataCount - 1, mid;
     efficiency = 0;
@@ -51,14 +51,14 @@ PTDatValue TSortTable::FindRecord(TKey key)
     return nullptr;
 }
 
-bool TSortTable::InsertRecord(TKey key, PTDatValue value)
+bool TSortTable::InsertRecord(TKey key, PTDataValue value)
 {
     if (isFull()) {
         SetRetCode(TAB_FULL);
         return false;
     }
     else {
-        PTDatValue tmp = FindRecord(key);
+        PTDataValue tmp = FindRecord(key);
         if (retCode == TAB_OK) {
             SetRetCode(TAB_RECORD_DOUBLE);
             return false;

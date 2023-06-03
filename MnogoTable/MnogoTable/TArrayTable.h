@@ -40,12 +40,12 @@ public:
     virtual TKey GetKey(Position pos) const;
     virtual TKey GetKey() const { return GetKey(Position::CURRENT); }
 
-    virtual PTDatValue GetValuePtr(Position pos) const;
-    virtual PTDatValue GetValuePtr() const { return GetValuePtr(Position::CURRENT); }
+    virtual PTDataValue GetValuePtr(Position pos) const;
+    virtual PTDataValue GetValuePtr() const { return GetValuePtr(Position::CURRENT); }
 
     // Сдача 5.1 на хэш таблице
-    //virtual PTDatValue FindRecord(TKey key) = 0;
-    //virtual bool InsertRecord(TKey key, PTDatValue value) = 0; // передача value по ссылке
+    //virtual PTDataValue FindRecord(TKey key) = 0;
+    //virtual bool InsertRecord(TKey key, PTDataValue value) = 0; // передача value по ссылке
     //virtual void DeleteRecord(TKey key) = 0;
 
 

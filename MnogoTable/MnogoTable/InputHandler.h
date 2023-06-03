@@ -6,14 +6,14 @@
 #include <vector>
 #include "TWarAndWorld.h"
 
-class Packer
+class InputHandler
 {
 private:
 	TTable* _table;
     std::vector<char> _punctMark{ { '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', '[', ']', '*'} }; 
     int _bookNumId;
 public:
-	Packer(TTable* table) {
+	InputHandler(TTable* table) {
 		_table = table;
         _bookNumId = 0;
 	}

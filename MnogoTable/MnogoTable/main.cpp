@@ -1,4 +1,4 @@
-
+ï»¿
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -6,57 +6,65 @@
 #include "TTabRecord.h"
 #include "TArrayTable.h"
 #include "TScanTable.h"
-#include "TSortTable.h"
 #include "TMarks.h"
 #include "TWarAndWorld.h"
 #include "InputHandler.h"
+
+#include "TSortTable.h"
+
 #include "TArrayHashTable.h"
 #include "TListHashTable.h"
+
+#include"TScanTable.h"
 
 #include "TestScan.h"
 
 void Func(int* &ptr1) {
-	std::cout << &ptr1 << std::endl;
+    std::cout << &ptr1 << std::endl;
 
 }
 
 
 
 int main() {
-	setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "Russian");
 
-	TListHashTable* a4 =  new TListHashTable(500000); // Îêîëî 461 ê ñëîâ âñåãî - êëþ÷-ñ÷¸ò÷èê-çíà÷åíèå > 100ê
-	//TArrayTable a4 = TArrayTable();
-	///*TWarAndWorld* a1 = new TWarAndWorld(Volume::FIRST, TypeText::LATINIC, FirstLetter::SMALL, 4);
-	TWarAndWorld* a2 = new TWarAndWorld(BookNumber::FIRST, TypeSymbol::LATINIC, TypeLetter::SMALL, 5);
-	//a.InsertRecord("llll", a1);
-	//a.InsertRecord("îîîç", a2);*/
-	Packer p = Packer(a4);
-	p.Execution("..\\text-full.txt");
-	//std::cout << *a4;
-	//
-	//TWarAndWorld* w1 = new TWarAndWorld(Volume::FIRST, TypeText::LATINIC, FirstLetter::SMALL, 4);
+    // 5.1 Print, Insert, Find, Delete
+    //TListHashTable* test1 = new TListHashTable(100);
+    TWarAndWorld* w1 = new TWarAndWorld(BookNumber::FIRST, TypeSymbol::LATINIC, TypeLetter::SMALL, 4);
+    TWarAndWorld* w2 = new TWarAndWorld(BookNumber::FIRST, TypeSymbol::LATINIC, TypeLetter::SMALL, 5);
+    TScanTable* test2 = new TScanTable(10000000);
 
-	//TestScan ts = TestScan();
-	//std::cout.precision(2);
-	//std::cout << std::fixed << std::setprecision(5)<< ts.TestInsert(a4, "lllk",a2) << " seconds" << std::endl;
-	//std::cout << ts.TestFind(a4, "îãíÿìè") << " seconds" << std::endl;
-	//std::cout << ts.TestDelete(a4, "ïîçâàí") << " seconds" << std::endl;
+    InputHandler p = InputHandler(test2);
+    //  "..\\text-full.txt"
+    // text-WarAndPeace.txt"
+    p.Execution("..\\text-WarAndPeace.txt");  
 
-	//std::cout.precision(2);
-	//std::cout << std::fixed << std::setprecision(5) << ts.TestWordSearch(a4,"..\\text-full.txt" ) << " seconds" << std::endl;
-	
-	//std::cout << *a4;
-	//std::cout << "QuickSort" << ts.TestQuickSort(a1) << " seconds" << std::endl;
-	//std::cout << "InsertSort" << ts.TestInsertSort(a1) << " seconds" << std::endl;
-	//std::cout << "MergeSort" << ts.TestMergeSort(a1) << " seconds" << std::endl;
-	//std::cout << "BubbleSort" << ts.TestBubbleSort(a1) << " seconds" << std::endl;
-	//std::cout << "HeapSort" << ts.TestFreeChoice(a1) << " seconds" << std::endl;
-	/*TSortTable* a2 = new TSortTable(*a1);
-	a2->SetSortMethod(QuickSort);
-	a2->SortData();
-	std::cout << *a2;*/
-	
-	
-	return 0;
+
+    TestScan ts = TestScan();
+
+    std::cout << ts.TestInsert(test2, "ÐšÐÐ ÐšÐÐ Ð«Ð§", input1) << " sec. " << std::endl;
+    //std::cout <<  ts.TestFind(test2, "ÐšÐÐ ÐšÐÐ Ð«Ð§") << " sec. " << std::endl;
+    //std::cout <<  ts.TestDelete(test2, "ÐšÐÐ ÐšÐÐ Ð«Ð§") << " sec. " << std::endl;
+    std::cout << ts.TestFind(test2, "Ð¾Ð³Ð½ÑÐ¼Ð¸") << " sec." << std::endl;
+    std::cout << ts.TestDelete(test2, "Ð¿Ð¾Ð·Ð²Ð°Ð½") << " sec." << std::endl;
+
+
+    // 5.2 Sort's
+
+    //std::cout << "QuickSort" << ts.TestQuickSort(test1) << " seconds" << std::endl;      // O(n2) -  O(nlogn)
+    //std::cout << "InsertSort" << ts.TestInsertSort(test1) << " seconds" << std::endl;  // O(n2) -  O(n)
+    //std::cout << "MergeSort" << ts.TestMergeSort(test1) << " seconds" << std::endl;    // O(nlogn) ?? Ð½Ðµ Ð¿Ð¾Ð¼Ð½ÑŽ
+    //std::cout << "HeapSort" << ts.TestFreeChoice(test1) << " seconds" << std::endl;    // O(nlogn)  - â™«ÑÑ‚Ð¾â™« â™ªÐ±Ð°Ð·Ð°â™ª
+
+    // 5.3 HashTable
+    //TArrayHashTable test3();
+    //InputHandler p2 = InputHandler(test3);
+    //  "..\\text-full.txt"
+    // text-WarAndPeace.txt"
+    p.Execution("..\\text-WarAndPeace.txt");
+    
+    
+    
+    return 0;
 }

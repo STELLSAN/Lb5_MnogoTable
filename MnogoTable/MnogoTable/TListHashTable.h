@@ -16,8 +16,8 @@ public:
 
 	virtual bool isFull() const;
 
-	virtual PTDatValue FindRecord(TKey key) override;
-	virtual bool InsertRecord(TKey key, PTDatValue datValue) override;
+	virtual PTDataValue FindRecord(TKey key) override;
+	virtual bool InsertRecord(TKey key, PTDataValue datValue) override;
 	virtual void DeleteRecord(TKey key) override;
 
 	virtual int Reset()override;
@@ -26,7 +26,7 @@ public:
 	virtual int GoNext() override;
 
 	virtual TKey GetKey()const override;
-	virtual PTDatValue GetValuePtr() const override;
+	virtual PTDataValue GetValuePtr() const override;
 
 };
 

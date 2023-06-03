@@ -43,8 +43,8 @@ public:
 	void SetSortMethod(SortMeth sm) {
 		_sortMethod = sm;
 	}
-	virtual PTDatValue FindRecord(TKey key) override;
-	virtual bool InsertRecord(TKey key, PTDatValue value) override;
+	virtual PTDataValue FindRecord(TKey key) override;
+	virtual bool InsertRecord(TKey key, PTDataValue value) override;
 	virtual void DeleteRecord(TKey key) override;
 
 };

@@ -23,8 +23,8 @@ public:
 	bool isEmpty() const { return dataCount == 0; }
 	virtual bool isFull() const = 0;
 
-	virtual PTDatValue FindRecord(TKey key) = 0;
-	virtual bool InsertRecord(TKey key, PTDatValue value) = 0; // передача value по ссылке
+	virtual PTDataValue FindRecord(TKey key) = 0;
+	virtual bool InsertRecord(TKey key, PTDataValue value) = 0; // передача value по ссылке
 	virtual void DeleteRecord(TKey key) = 0;
 
 	// Для итератора 
@@ -32,7 +32,7 @@ public:
 	virtual int IsTabEnded() const = 0;
 	virtual int GoNext() = 0;
 	virtual TKey GetKey() const = 0;
-	virtual PTDatValue GetValuePtr() const = 0;
+	virtual PTDataValue GetValuePtr() const = 0;
 
 	friend std::ostream& operator<<(std::ostream& out, TTable& table) {
 		for (table.Reset(); !table.IsTabEnded(); table.GoNext())

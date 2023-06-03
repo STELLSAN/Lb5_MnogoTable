@@ -20,4 +20,4 @@ public:
 
 };
 
-typedef TDataValue* PTDatValue;
+typedef TDataValue* PTDataValue;

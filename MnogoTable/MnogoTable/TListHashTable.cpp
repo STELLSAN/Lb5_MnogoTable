@@ -23,9 +23,9 @@ bool TListHashTable::isFull() const
 	return pList == nullptr;
 }
 
-PTDatValue TListHashTable::FindRecord(TKey key)
+PTDataValue TListHashTable::FindRecord(TKey key)
 {
-	PTDatValue pValue = nullptr;
+	PTDataValue pValue = nullptr;
 	currentList = HashFunc(key) % tabSize;
 	efficiency = 0;
 
@@ -54,13 +54,13 @@ PTDatValue TListHashTable::FindRecord(TKey key)
 	return pValue;
 }
 
-bool TListHashTable::InsertRecord(TKey key, PTDatValue datValue)
+bool TListHashTable::InsertRecord(TKey key, PTDataValue datValue)
 {
 	if (isFull()) {
 		SetRetCode(TAB_FULL);
 	}
 	else {
-		PTDatValue pVal = FindRecord(key);
+		PTDataValue pVal = FindRecord(key);
 		if (pVal != nullptr) {
 			SetRetCode(TAB_RECORD_DOUBLE);
 		}
@@ -127,7 +127,7 @@ TKey TListHashTable::GetKey() const
 	return (*iter)->GetKey();
 }
 
-PTDatValue TListHashTable::GetValuePtr() const
+PTDataValue TListHashTable::GetValuePtr() const
 {
 	return (*iter)->GetValue();
 }

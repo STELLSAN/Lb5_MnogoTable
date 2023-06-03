@@ -18,7 +18,7 @@ TKey TArrayTable::GetKey(Position pos) const
     return (localPos == -1 ? std::string("") : pRecs[localPos]->_key);
 }
 
-PTDatValue TArrayTable::GetValuePtr(Position pos) const
+PTDataValue TArrayTable::GetValuePtr(Position pos) const
 {
     int localPos = -1;
     if (!this->isEmpty())

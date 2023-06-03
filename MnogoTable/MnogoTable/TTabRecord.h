@@ -10,22 +10,22 @@ class TTabRecord : public TDataValue {
 protected:
     
     TKey _key;
-    PTDatValue _pValue; 
+    PTDataValue _pValue; 
 
     void Print(std::ostream& os) const override {
         os << _key << " " << *_pValue;
     }
 
     void SetKey(const TKey& key) { _key = key; }
-    void SetValue(PTDatValue value) { _pValue = value; }
+    void SetValue(PTDataValue value) { _pValue = value; }
 
 public:
-    TTabRecord(const TKey& key = "", PTDatValue value = nullptr) :
+    TTabRecord(const TKey& key = "", PTDataValue value = nullptr) :
         _key(key), _pValue(value) {}
 
 
     TKey GetKey() { return _key; }
-    PTDatValue GetValue() { return _pValue; }
+    PTDataValue GetValue() { return _pValue; }
 
     TTabRecord& operator=(const TTabRecord& other) {
         _key = other._key;
@@ -46,7 +46,7 @@ public:
         return _key > other._key;
     }
 
-    PTDatValue GetCopy() override {
+    PTDataValue GetCopy() override {
         return new TTabRecord(_key, _pValue);
     }
 

@@ -25,10 +25,10 @@ TArrayHashTable::~TArrayHashTable()
 	delete pMark;
 }
 
-PTDatValue TArrayHashTable::FindRecord(TKey key)
+PTDataValue TArrayHashTable::FindRecord(TKey key)
 {
 	SetRetCode(TAB_OK);
-	PTDatValue ptmp = nullptr;
+	PTDataValue ptmp = nullptr;
 	freePos = -1;
 	efficiency = 0;
 	currentPos = HashFunc(key) % tabSize; //определяет примерное положение
@@ -54,13 +54,13 @@ PTDatValue TArrayHashTable::FindRecord(TKey key)
 	return ptmp;
 }
 
-bool TArrayHashTable::InsertRecord(TKey key, PTDatValue datValue)
+bool TArrayHashTable::InsertRecord(TKey key, PTDataValue datValue)
 {
 	if (isFull()) {
 		SetRetCode(TAB_FULL);
 	}
 	else {
-		PTDatValue tmp = FindRecord(key);
+		PTDataValue tmp = FindRecord(key);
 		if (tmp != nullptr) { SetRetCode(TAB_RECORD_DOUBLE); }
 		else {
 			SetRetCode(TAB_OK);
@@ -75,7 +75,7 @@ bool TArrayHashTable::InsertRecord(TKey key, PTDatValue datValue)
 
 void TArrayHashTable::DeleteRecord(TKey key)
 {
-	PTDatValue tmp = FindRecord(key);
+	PTDataValue tmp = FindRecord(key);
 	if (tmp == nullptr) {
 		SetRetCode(TAB_NO_RECORD);
 	}
@@ -119,7 +119,7 @@ TKey TArrayHashTable::GetKey() const
 	return "";
 }
 
-PTDatValue TArrayHashTable::GetValuePtr() const
+PTDataValue TArrayHashTable::GetValuePtr() const
 {
 	if (currentPos >= 0 && currentPos < tabSize) return pRecs[currentPos]->GetValue();
 	return nullptr;
