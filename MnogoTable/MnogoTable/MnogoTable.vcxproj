@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f20a7c4a-3c16-4414-b328-7e9d9a69f31e}</ProjectGuid>
-    <RootNamespace>MnogoTable</RootNamespace>
+    <ProjectGuid>{2611dfae-0559-470f-a68b-f9eefd0c6b0a}</ProjectGuid>
+    <RootNamespace>MultiTable</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,10 +129,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="Marks.h" />
+    <ClInclude Include="TArrayHashTable.h" />
     <ClInclude Include="TArrayTable.h" />
-    <ClInclude Include="TDataCom.h" />
+    <ClInclude Include="TDatCom.h" />
     <ClInclude Include="TDataValue.h" />
+    <ClInclude Include="TestScan.h" />
+    <ClInclude Include="THashTable.h" />
+    <ClInclude Include="TListHashTable.h" />
+    <ClInclude Include="TMarks.h" />
     <ClInclude Include="TScanTable.h" />
     <ClInclude Include="TSortTable.h" />
     <ClInclude Include="TTable.h" />
@@ -139,12 +144,22 @@
     <ClInclude Include="TWarAndWorld.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TArrayHashTable.cpp" />
     <ClCompile Include="TArrayTable.cpp" />
+    <ClCompile Include="TestScan.cpp" />
+    <ClCompile Include="TestScanTable.cpp" />
+    <ClCompile Include="THashTable.cpp" />
+    <ClCompile Include="TListHashTable.cpp" />
+    <ClCompile Include="TMarks.cpp" />
     <ClCompile Include="TScanTable.cpp" />
     <ClCompile Include="TSortTable.cpp" />
     <ClCompile Include="TWarAndWorld.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\text-full.txt" />
+    <Text Include="..\WarAndPeace.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
