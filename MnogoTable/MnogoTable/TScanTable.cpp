@@ -2,15 +2,16 @@
 
 PTDataValue TScanTable::FindRecord(TKey key)
 {
+    // 
     int i;
     SetRetCode(TAB_OK);
     for (i = 0; i < dataCount; i++)
     {
-        if (pRecs[i]->_key == key)
+        if (pRecs[i]->_key == key) {
             break;
+        }
     }
     efficiency = i + 1;
-
     if (i < dataCount)
     {
         curPos = i;
@@ -34,6 +35,7 @@ bool TScanTable::InsertRecord(TKey key, PTDataValue value)
     pRecs[dataCount] = new TTabRecord(key, value);
     dataCount++;
     SetRetCode(TAB_OK);
+    efficiency++;
     return true;
 }
 
@@ -45,6 +47,7 @@ void TScanTable::DeleteRecord(TKey key)
     else
     {
         SetRetCode(TAB_OK);
+        efficiency++;
         pRecs[curPos] = pRecs[dataCount - 1];
         pRecs[--dataCount] = nullptr;
     }

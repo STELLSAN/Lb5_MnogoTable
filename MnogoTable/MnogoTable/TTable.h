@@ -13,7 +13,7 @@
 class TTable: public TDatCom {
 protected:
 	size_t dataCount; //  ол-во записей
-	size_t efficiency; // Ёффективность
+	size_t efficiency; // Ёффективность - кол-во операций необходимых дл€ выполнени€ операции поиска записи в таблице
 public:
 	TTable() : dataCount(0), efficiency(0) {}
 	virtual ~TTable() {}

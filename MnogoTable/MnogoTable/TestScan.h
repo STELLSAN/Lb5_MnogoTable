@@ -33,6 +33,17 @@ public:
         return  (double)(end - start) / CLOCKS_PER_SEC;
     }
 
+
+    double TestBubbleSort(TScanTable* a) {
+        TSortTable* a2 = new TSortTable(*a);
+        a2->SetSortMethod(BubbleSort);
+        clock_t start = clock();
+        a2->SortData();
+        clock_t end = clock();
+
+        return  (double)(end - start) / CLOCKS_PER_SEC;
+    }
+
     double TestFreeChoice(TScanTable* a) {
         TSortTable* a2 = new TSortTable(*a);
         a2->SetSortMethod(FreeChoice);
@@ -73,6 +84,7 @@ public:
     double TestWordSearch(TTable* tst, std::string Path) {
         std::ifstream in(Path );
         double value = 0;
+        std::vector<char> _punctMark_{ { '\n', '\t', ' ', '.', ',', '!', '?', ':', ';', '"', '(', ')', '-', '[', ']', '*'} };
         if (in.is_open())
         {
 
@@ -80,8 +92,9 @@ public:
             while (getline(in, line)) {
                 std::string tempStr;
 
+                
                 for (int i = 0; i < line.size(); i++) {
-                    if (std::find(_punctMarks.begin(), _punctMarks.end(), line[i]) == _punctMarks.end()) {
+                    if (std::find(_punctMark_.begin(), _punctMark_.end(), line[i]) == _punctMark_.end()) {
                         if (!('0' <= line[i] && line[i] <= '9')) {
                             tempStr += line[i];
 
@@ -102,41 +115,6 @@ public:
     double WordFind(TTable* tst, std::string st) {
         clock_t start = clock();
         tst->FindRecord(st);
-        clock_t end = clock();
-        return  (double)(end - start) / CLOCKS_PER_SEC;
-    }
-
-    double TestWordDelete(TTable* tst, std::string Path) {
-        std::ifstream in(Path);
-        double value = 0;
-        if (in.is_open())
-        {
-
-            std::string line;
-            while (getline(in, line)) {
-                std::string tempStr;
-
-                for (int i = 0; i < line.size(); i++) {
-                    if (std::find(_punctMarks.begin(), _punctMarks.end(), line[i]) == _punctMarks.end()) {
-                        if (!('0' <= line[i] && line[i] <= '9')) {
-                            tempStr += line[i];
-
-                        }
-
-                    }
-                    else {
-                        value += WordDelete(tst, tempStr);
-                        tempStr.clear();
-                    }
-
-                }
-            }
-        };
-        return value;
-    }
-    double WordDelete(TTable* tst, std::string st) {
-        clock_t start = clock();
-        tst->DeleteRecord(st);
         clock_t end = clock();
         return  (double)(end - start) / CLOCKS_PER_SEC;
     }

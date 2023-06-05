@@ -37,7 +37,7 @@ PTDataValue TSortTable::FindRecord(TKey key)
         else
             first = mid + 1;
     }
-    if (last < 0 || pRecs[last]->GetKey() < key) { // Может ли быть mid < 0 
+    if (last < 0 || pRecs[last]->GetKey() < key) { 
         last++;
     }
     curPos = last;
@@ -119,6 +119,7 @@ void TSortTable::BubbleSort(PTTabRecord* data, int size)
                 curElem = data[j];
                 data[j] = data[j+1];
                 data[j + 1] = curElem;
+                efficiency++;
             }
         }
     }
@@ -157,6 +158,7 @@ void TSortTable::QuickSort(PTTabRecord* data, int n1, int n2)
 
 int TSortTable::QuickSplit(PTTabRecord* data, int n1, int n2)
 {
+
     int i = n1, pivot = n2;
     while (i < pivot)
     {

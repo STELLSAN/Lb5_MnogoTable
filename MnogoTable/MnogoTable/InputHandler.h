@@ -76,11 +76,11 @@ public:
 
                     }               
                 }
-            }; 
+            };
+            std::cout << "The file has been read" << std::endl;
         }
 
         input.close();
-        std::cout << "The file has been read" << std::endl;
 	}
     
     
